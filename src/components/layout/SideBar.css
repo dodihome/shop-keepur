@@ -1,0 +1,10 @@
+.sidebar {
+    width: 20%;
+}
+.sidebar.left {
+    float: left;
+}
+.sidebar.right {
+    float: right;
+}
+
