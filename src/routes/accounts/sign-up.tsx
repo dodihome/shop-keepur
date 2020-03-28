@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/layout/Header";
-import { Footer } from "../../components/layout/Footer";
+import { Footer } from "../../components/layout/footer";
 import SignUp from "../../components/accounts/SignUp";
 import './accounts.css';
 

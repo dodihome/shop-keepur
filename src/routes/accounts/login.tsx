@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "../../components/accounts/Login";
 import Header from "../../components/layout/Header";
-import { Footer } from "../../components/layout/Footer";
+import { Footer } from "../../components/layout/footer";
 import './accounts.css';
 
 export class LoginPage extends React.Component<any, any> {
