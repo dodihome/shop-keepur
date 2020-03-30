@@ -53,6 +53,7 @@ export default class RequestReset extends Component {
     render () {
         return (
             <div className='auth login'>
+                <h1>Forgot Password</h1>
                 <Form onSubmit={this.onRequestReset.bind(this)}>
                     <Form.Control placeholder="Email" style={{marginBottom: '10px'}}
                         type='text'

@@ -1,10 +1,9 @@
 import React from "react";
-import Header from "../../components/layout/Header";
-import { Footer } from "../../components/layout/footer";
 import { withAuth } from "../../utils/withAuth";
 import { Button } from "react-bootstrap";
 import Accounts from "../../lib/accounts/client";
 import './accounts.css';
+import DefaultLayout from "../../components/layout/default";
 
 class UserProfilePage extends React.Component<any, any> {
 
@@ -23,16 +22,10 @@ class UserProfilePage extends React.Component<any, any> {
         if (!user) return null;
         
         return (
-            <div className="account-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-                <Header />
-
-                <main role="main" className="inner cover">
-                    <h3>{user.displayName}</h3>
-                    <Button className='btn btn-secondary' onClick={this.onLogout.bind(this)}>Logout</Button>
-                </main>
-
-                <Footer />
-            </div>
+            <DefaultLayout>
+                <h3>{user.displayName}</h3>
+                <Button className='btn btn-secondary' onClick={this.onLogout.bind(this)}>Logout</Button>
+            </DefaultLayout>
         )
     }
 }

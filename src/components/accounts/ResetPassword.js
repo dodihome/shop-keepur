@@ -85,6 +85,7 @@ export default class ResetPassword extends Component {
 
         return (
             <div className='auth login'>
+                <h1>Reset Password</h1>
                 <Form onSubmit={this.onResetPassword.bind(this)}>
                     <Form.Control placeholder="New Password" type="password" 
                         style={{marginBottom: '10px'}} 

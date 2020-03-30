@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Divider = (props) => {
+export const Divider = (props : any) => {
     if (props.text) {
         return (
             <div className='divider'>

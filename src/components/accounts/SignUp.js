@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { isValidEmail } from '../../utils/validator';
 
-import { Divider } from '../Divider';
+import { Divider } from '../widgets/Divider';
 
 import Accounts from '../../lib/accounts/client';
 
@@ -124,7 +124,8 @@ export default class SignUp extends Component {
 
     render () {
         return (
-            <div className='auth signup'>
+            <div className='auth login'>
+                <h1>Sign Up</h1>
                 <Form onSubmit={this.onSignUp.bind(this)}>
                     <Form.Control placeholder="Email" style={{marginBottom: '10px'}} 
                         type="text"

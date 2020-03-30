@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Form, Alert, Button } from 'react-bootstrap';
 
-import { Divider } from '../Divider';
+import { Divider } from '../widgets/Divider';
 import Accounts from '../../lib/accounts/client';
 
 export default class Login extends Component {
@@ -60,6 +60,7 @@ export default class Login extends Component {
 
         return (
             <div className='auth login'>
+                <h1>Login</h1>
                 <Form onSubmit={this.onLogin.bind(this)}>
                     <Form.Control placeholder="Email" style={{marginBottom: '10px'}} 
                         type='text'

@@ -24,6 +24,7 @@ export default class VerifyEmail extends Component<any, any> {
     render () {
         return (
             <div className='auth login'>
+                <h1>Confirm Email</h1>
                 {this.state.error?
                     <Alert variant='danger'>{this.state.error}</Alert> : null
                 }
