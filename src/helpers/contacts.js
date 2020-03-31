@@ -1,7 +1,3 @@
-import { isContext } from 'vm';
-
-const _ = require('lodash');
-
 export function newAddress () {
     return {
         placeId: '',
@@ -16,10 +12,14 @@ export function newSocialAccount () {
     }
 }
 
-export function newPhoneNumber () {
+export function newPhoneNumber (label) {
+
+    label = label? label : 'mobile';
+    const canReceiveText = (label === 'mobile') ? true : false;
+
     return {
-        label: 'mobile',
-        canReceiveText: true,
+        label: label,
+        canReceiveText,
         number: ''
     }
 }
@@ -56,21 +56,27 @@ export function newOrgContact () {
     }
 }
 
-export function isEmail(email){
-	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test( email );	
-}
-
 export function reformatPhoneNumber (number) {
     const phoneNum = number.replace(/[^\d]/g, '');
-    if (phoneNum.length == 7) {
+    if (phoneNum.length === 7) {
         return (phoneNum.slice(0, 3) + '-' + phoneNum.slice(3));
-    } else if (phoneNum.length == 10 ){
+    } else if (phoneNum.length === 10 ){
         return ('(' + phoneNum.slice(0, 3) + ') ' + phoneNum.slice(3, 6) + '-' + phoneNum.slice(6));
     } else {
         return null;
     }
 }
 
+export function reformatWebsite (website) {
+    const ws = website.toLowerCase();
+    if (ws.startsWith ('http://')) {
+        return ws;
+    } else if (ws.startsWith ('https://')) {
+        return ws;
+    } else {
+        return 'http://' + ws;
+    }
+}
 
 export function cleanUpContactInfo (contactInfo) {
 

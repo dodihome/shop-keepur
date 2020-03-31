@@ -6,7 +6,7 @@ export function isValidEmail (email: string) : boolean {
 
 export function isPhoneNumber (number : string) {
     const phoneNum = number.replace(/[^\d]/g, '');
-    if (phoneNum.length == 7 || phoneNum.length == 10) {  
+    if (phoneNum.length === 7 || phoneNum.length === 10) {  
         return true;  
     } else {
         return false;

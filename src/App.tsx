@@ -8,6 +8,10 @@ import { ForgotPasswordPage } from './routes/accounts/forgot-password';
 import { ResetPasswordPage } from './routes/accounts/reset-password';
 import { VerifyEmailPage } from './routes/accounts/verify-email';
 import UserProfilePage from './routes/accounts/profile';
+import { LogoutPage } from './routes/accounts/logout';
+import BizEdit from './routes/businesses/biz.edit';
+import BizClaim from './routes/businesses/biz.claim';
+import BizzList from './routes/businesses/list.public';
 
 class App extends React.Component {
   render () {
@@ -15,12 +19,18 @@ class App extends React.Component {
       <Router>
         <Route exact path='/' component={Home} />
         <Route exact path='/user/login' component={LoginPage} />
+        <Route exact path='/user/logout' component={LogoutPage} />
         <Route exact path='/user/sign-up' component={SignUpPage} />
         <Route exact path='/user/forgot-password' component={ForgotPasswordPage} />
         <Route exact path='/user/reset-password/:token' component={ResetPasswordPage} />
         <Route exact path='/user/verify-email/:token' component={VerifyEmailPage} />
 
         <Route exact path='/user/profile' component={UserProfilePage} />
+
+        <Route exact path='/biz/new' component={BizEdit} />
+        <Route exact path='/biz/claim/:id' component={BizClaim} />
+        <Route exact path='/biz/edit/:id' component={BizEdit} />
+        <Route exact path='/biz' component={BizzList} />
       </Router>
     )
   };  

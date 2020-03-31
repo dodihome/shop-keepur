@@ -51,7 +51,7 @@ export default class Login extends Component {
             if (error) {
                 console.log({error});
             } else {
-                self.props.history.push('/user/projects');
+                self.props.history.push('/user/profile');
             }
         })            
     }

@@ -27,21 +27,9 @@ const Accounts = {
         fn();
     },
 
-    logout: (callback: Function) => {
-        /*
-        const uri = serverBaseUrl + '/api/accounts/logout';
-        const fn = async () => {
-            const resRaw = await fetch (uri);
-            const res = await resRaw.json();
-
-            Cookies.remove('session', { path: '/' }) // removed!
-            callback (res.error);
-        }
-        fn();
-        */
+    logout: () => {
        Dodi.getInstance().setUser(null as any);
        Cookies.remove('session', { path: '/' }) // removed!
-       callback(null);
     },
 
     resume: async (token: string) => {
@@ -53,7 +41,7 @@ const Accounts = {
         return {error: res.error, user: res.user};
     },
 
-    signup: async (email: string, password: string) : Promise<LoginResult> => {
+    signup: async (email: string, password: string, firstName, lastName) : Promise<LoginResult> => {
         const uri = serverBaseUrl + '/api/accounts/signup';
         const passwordHash = await bcrypt.hashSync(password, saltRounds);
         const res = await (await fetch(uri, {
@@ -61,7 +49,7 @@ const Accounts = {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email, passwordHash})
+            body: JSON.stringify({email, passwordHash, firstName, lastName})
         })).json();
 
         if (res.token) {

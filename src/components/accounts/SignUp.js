@@ -13,6 +13,8 @@ export default class SignUp extends Component {
         super(props);
 
         this.state = {
+            firstName: '',
+            lastName: '',
             email: '',
             password: '',
             password2: '',
@@ -41,6 +43,22 @@ export default class SignUp extends Component {
         this.setState ({
             invalidEmailError: true
         });
+    }
+
+    onChangeFirstName (e) {
+        e.preventDefault();
+
+        this.setState({
+            firstName: e.target.value
+        })
+    }
+
+    onChangeLastName (e) {
+        e.preventDefault();
+
+        this.setState({
+            lastName: e.target.value
+        })
     }
 
     onChangePassword (e) {
@@ -82,7 +100,7 @@ export default class SignUp extends Component {
 
     async onSignUp (e) {
         e.preventDefault();
-        const {email, password} = this.state;
+        const {email, password, firstName, lastName} = this.state;
 
         if (!email) {
             this.setState ({
@@ -101,7 +119,8 @@ export default class SignUp extends Component {
             });
         } else {
             const history = this.props.history;
-            const res = await Accounts.signup (this.state.email, password);
+            
+            const res = await Accounts.signup (email, password, firstName, lastName);
             const {error} = res;
 
             console.log({res});
@@ -127,6 +146,16 @@ export default class SignUp extends Component {
             <div className='auth login'>
                 <h1>Sign Up</h1>
                 <Form onSubmit={this.onSignUp.bind(this)}>
+                    <Form.Control placeholder="First Name" style={{marginBottom: '10px'}} 
+                        type="text"
+                        onChange={this.onChangeFirstName.bind(this)}
+                        value={this.state.firstName}
+                    />
+                    <Form.Control placeholder="Last Name" style={{marginBottom: '10px'}} 
+                        type="text"
+                        onChange={this.onChangeLastName.bind(this)}
+                        value={this.state.lastName}
+                    />
                     <Form.Control placeholder="Email" style={{marginBottom: '10px'}} 
                         type="text"
                         isInvalid={this.state.invalidEmailError}

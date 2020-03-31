@@ -1,0 +1,57 @@
+.biz {
+    padding-top: 40px;
+    h1 {
+        font-size: 1.5em;
+    }
+
+    &.edit {
+        width: 500px;
+        margin: auto;
+
+        .control-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            button {
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-left: 10px;
+            }
+        }
+
+        .phone.edit {
+            .form-check {
+                padding-left: 40px;
+                padding-top: 7px;
+            }
+        }
+    }
+
+    &.list {
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+        }
+
+        i.fas {
+            display: inline-block;
+            margin-right: 20px;
+            color: #555;
+        }
+
+        .card-title {
+            .badge {
+                margin-left: 10px;
+            }
+
+            button {
+                display: inline-block;
+                margin-left: 10px;
+                font-size: small;
+            }
+        }        
+    }
+}
