@@ -13,6 +13,8 @@ import BizEdit from './routes/businesses/biz.edit';
 import BizClaim from './routes/businesses/biz.claim';
 import BizzList from './routes/businesses/list.public';
 
+import BizzAdmin from './routes/admin/bizz';
+
 class App extends React.Component {
   render () {
     return (
@@ -27,10 +29,12 @@ class App extends React.Component {
 
         <Route exact path='/user/profile' component={UserProfilePage} />
 
-        <Route exact path='/biz/new' component={BizEdit} />
-        <Route exact path='/biz/claim/:id' component={BizClaim} />
-        <Route exact path='/biz/edit/:id' component={BizEdit} />
-        <Route exact path='/biz' component={BizzList} />
+        <Route exact path='/bizz/new' component={BizEdit} />
+        <Route exact path='/bizz/claim/:id' component={BizClaim} />
+        <Route exact path='/bizz/edit/:id' component={BizEdit} />
+        <Route exact path='/bizz' component={BizzList} />
+
+        <Route exact path='/admin/bizz' component={BizzAdmin} />
       </Router>
     )
   };  

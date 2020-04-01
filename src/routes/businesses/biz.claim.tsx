@@ -8,6 +8,16 @@ import { Link } from 'react-router-dom';
 class BizClaim extends React.Component<any, any> {
     state : any = {} as any;
 
+    async componentDidMount() {
+        const bizId = this.props.match.params.id;
+        const {error, biz} = await Bizz.consumerView(bizId);
+        if (error) {
+            this.setState({error});
+        } else {
+            this.setState ({biz});
+        }
+    }
+
     onChangeRole( e : any) {
         e.preventDefault ();
         this.setState({
@@ -17,7 +27,7 @@ class BizClaim extends React.Component<any, any> {
 
     onCancel (e : any) {
         e.preventDefault();
-        this.props.history.push('/');
+        this.props.history.push('/bizz');
     }
 
     async onSubmit (e : any) {
@@ -42,6 +52,14 @@ class BizClaim extends React.Component<any, any> {
                         user?
                         <React.Fragment>
                             <h1>Claim My Business</h1>
+                            {
+                                this.state.biz?
+                                <Alert variant='info'>
+                                    <h3>{this.state.biz.name}</h3>
+                                    <p>{this.state.biz.address.inputText}</p>
+                                </Alert>
+                                : null
+                            }
                             {
                                 this.state.isSubmitted?
                                 <div>

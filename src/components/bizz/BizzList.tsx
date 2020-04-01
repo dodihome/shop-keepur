@@ -9,7 +9,7 @@ class BizCard extends React.Component<any, any> {
     render () {
         const {biz, user} = this.props;
         const showClaimButton = (user && !biz.isClaimed);
-        const claimLink = '/biz/claim/' + biz.id;
+        const claimLink = '/bizz/claim/' + biz.id;
 
         return <Card key={biz.id}>
             <Card.Body>
@@ -40,7 +40,7 @@ export class BizzList extends React.Component<any, any> {
                 <div className='heading'>
                     <h1>Stores</h1>
                     {user ?
-                    <Link to='/biz/new'><Button variant='outline-primary'>+ Add Store</Button></Link>
+                    <Link to='/bizz/new'><Button variant='outline-primary'>+ Add Store</Button></Link>
                     : null
                     }
                 </div>

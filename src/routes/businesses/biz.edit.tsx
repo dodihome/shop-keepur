@@ -44,7 +44,7 @@ class BizEdit extends React.Component<any, any> {
 
     onCancel (e : any) {
         e.preventDefault();
-        this.props.history.push('/');
+        this.props.history.push('/bizz');
     }
 
     async onSubmit (e: any) {
@@ -53,15 +53,21 @@ class BizEdit extends React.Component<any, any> {
         const createDto = {
             name: this.state.name,
             address: this.state.address,
-            phone: this.state.phone,
-            website: this.state.website,
             createdBy: user.id
+        } as any;
+
+        if (this.state.phone.number) {
+            createDto.phone = this.state.phone;
         }
+        if (this.state.website) {
+            createDto.website = this.state.website;
+        }
+
         const {error, bizId}  = await Bizz.addBiz(createDto);
         if (error) {
             this.setState({error});
         } else {
-            this.props.history.push('/biz/claim/' + bizId);
+            this.props.history.push('/bizz/claim/' + bizId);
         }
     }
 

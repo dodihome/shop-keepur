@@ -1,13 +1,14 @@
-import { UserProfile } from "../lib/accounts/accounts.interface";
+import * as _ from 'lodash';
+import { IUserProfile } from "../lib/accounts/accounts.interface";
 
 export default class Dodi {
     private static _dodi = new Dodi();
 
-    private user : UserProfile = null as any;
+    private user : IUserProfile = null as any;
     private constructor () {
     }
 
-    static user () : UserProfile {
+    static user () : IUserProfile {
         return this._dodi.user;
     }
 
@@ -19,7 +20,19 @@ export default class Dodi {
         return this._dodi;
     }
 
-    setUser (user: UserProfile) : void {
+    setUser (user: IUserProfile) : void {
         this.user = user;
+    }
+
+    static isSysAdmin (user? : IUserProfile) : boolean {
+        if (!user) {
+            user = Dodi.user();
+        }
+
+        if (!user) {
+            return false;
+        }
+
+        return (_.indexOf(user.systemRoles, 'admin') >= 0);
     }
 }

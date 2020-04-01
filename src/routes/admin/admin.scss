@@ -1,0 +1,52 @@
+.admin {
+    padding-top: 40px;
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .nav-tabs {
+        margin-top: 20px;
+    }
+
+    &.bizz {
+        .tab-content {
+            padding-top: 20px;
+        }
+
+        .biz-table {
+            .biz-cell {
+                .name {
+                    display: block;
+                    font-weight: bold;
+                }
+                .info {
+                    display: block;
+                }
+            }
+            .claim-cell {
+                .claim {
+                    border-bottom: 1px solid #ccc;
+                    padding-top: 7px;
+                    padding-bottom: 8px;
+                    .claimed-by {
+                        display: inline-block;
+                        margin-right: 10px;
+                    }
+                    .when {
+                        font-size: smaller;
+                        font-style: italic;
+                        color: #999;
+                        margin-right: 10px;
+                    }
+                }
+                .actions {
+                    display: inline-block;
+                    button {
+                        margin-left: 5px;
+                        margin-right: 5px;
+                    }
+                }    
+            }
+        }
+    }
+}

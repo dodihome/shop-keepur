@@ -17,3 +17,7 @@ export function float (amount : any) {
 export function shortDate (date: Date) {
     return moment(date).format(DATE_FORMAT);
 }
+
+export function fromNow (date: Date) {
+    return moment(date).fromNow();
+}
