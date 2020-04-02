@@ -1,4 +1,6 @@
-import { CreateBizDto } from './business.interface';
+import * as _ from 'lodash';
+import { CreateBizDto, IBizConsumerView, UpdateBizDto } from './business.interface';
+import { IUserProfile } from '../accounts/accounts.interface';
 
 const Bizz = {
     addBiz : async (biz : CreateBizDto) => {
@@ -9,6 +11,32 @@ const Bizz = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({createDto: biz})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    updateBizInfo : async (biz: UpdateBizDto) => {
+        const uri = '/api/bizz/update-info';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({updateDto: biz})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    updateTags : async (bizId: string, tags: string[], userId: string) => {
+        const uri = '/api/bizz/update-tags';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({bizId, tags, userId})
         });
         const res = await resRaw.json();
         return res;
@@ -44,6 +72,29 @@ const Bizz = {
         const uri = '/api/bizz/manager-view?bizId=' + bizId + '&userId=' + userId;
         const resRaw = await fetch (uri);
         return (await resRaw.json());
+    },
+
+    canClaim (biz: IBizConsumerView, user: IUserProfile) {
+        if (!biz) return false;
+
+        if (!user) return false;
+        if (biz.isClaimed) return false;
+
+        return true;
+    },
+
+    canEdit (biz: IBizConsumerView, user: IUserProfile) {
+        if (!biz) return false;
+
+        if (!user) return false;
+        if (!biz.isClaimed) {
+            return true;
+        } else {
+            const found = _.find(biz.people, (p)=> {
+                return (p.userId === user.id);
+            })
+            return (found? true: false);
+        }
     }
 }
 

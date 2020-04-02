@@ -28,11 +28,25 @@ export class AddressView extends Component<any, any> {
 export class AddressEdit extends Component<any, any> {
     state : any = {street1: '', city: '', state: ''} as any;
 
+    componentDidMount () {
+        const { address } = this.props;
+        if (address) {
+            this.setState({
+                _id: address._id,
+                street1: address.street1,
+                city: address.city,
+                state: address.state,
+                isDirty: false
+            })
+        }
+    }
+
     componentDidUpdate (oldProps : any) {
         if (this.props !== oldProps) {
             const {address } = this.props;
             if (address) {
                 this.setState({
+                    _id: address._id,
                     street1: address.street1,
                     city: address.city,
                     state: address.state,
@@ -60,6 +74,7 @@ export class AddressEdit extends Component<any, any> {
     updateAddress () {
         if (this.state.isDirty) {
             const newAddress = {
+                _id: this.state._id,
                 street1: this.state.street1,
                 city: this.state.city,
                 state: this.state.state
@@ -69,7 +84,7 @@ export class AddressEdit extends Component<any, any> {
     }
 
     render () {
-        const { street, city, state } = this.state;
+        const { id, street1, city, state } = this.state;
         return (
             <div className='address edit'>
                 <InputGroup>
@@ -79,7 +94,7 @@ export class AddressEdit extends Component<any, any> {
                     <FormControl 
                         placeholder='Street'
                         name='street1'
-                        value={street}
+                        value={street1}
                         isInvalid={this.state.validationError}
                         onChange={this.onChange.bind(this)}
                         onBlur={this.onBlur.bind(this)} />

@@ -7,15 +7,22 @@ import { AddressView } from '../widgets/Address';
 
 class BizCard extends React.Component<any, any> {
 
+    onClick (e : any) {
+        e.preventDefault();
+        this.props.history.push('/bizz/' + this.props.biz.id);
+    }
+
     render () {
         const {biz, user} = this.props;
         const showClaimButton = (user && !biz.isClaimed);
         const claimLink = '/bizz/claim/' + biz.id;
 
+        const viewLink = '/bizz/' + biz.id;
+
         return <Card key={biz.id}>
             <Card.Body>
                 <Card.Title>
-                    <span>{biz.name}</span> 
+                    <span><Link to={viewLink}>{biz.name}</Link></span> 
                     {
                         showClaimButton? 
                         <Link to={claimLink}><Button size="sm" variant='link'>(Claim Business)</Button></Link>
@@ -27,7 +34,11 @@ class BizCard extends React.Component<any, any> {
                     }
                 </Card.Title>
                 <Card.Text><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></Card.Text>
-                <Card.Text><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></Card.Text>
+                {
+                    biz.phone?
+                    <Card.Text><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></Card.Text>
+                    : null
+                }
             </Card.Body>
         </Card>
     }

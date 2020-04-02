@@ -5,6 +5,7 @@ export interface IPhoneNumber {
 }
 
 export interface IAddress {
+    _id: string,
     street1 : string,
     street2 : string,
     city : string,
@@ -25,6 +26,15 @@ export interface CreateBizDto {
     website: string,
     createdBy: string
 };
+
+export interface UpdateBizDto {
+    id: string
+    name: string,
+    address: IAddress,
+    phone: IPhoneNumber,
+    website: string,
+    updatedBy: string
+}
 
 export interface IProduct {
     name: string,
@@ -55,5 +65,6 @@ export interface IBizConsumerView {
     social: ISocialMediaAccount[],
     emails: string[],
     isClaimed: boolean,
+    people: any[],
     inventory: IInventoryItem[]
 }

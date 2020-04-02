@@ -9,7 +9,8 @@ import { ResetPasswordPage } from './routes/accounts/reset-password';
 import { VerifyEmailPage } from './routes/accounts/verify-email';
 import UserProfilePage from './routes/accounts/profile';
 import { LogoutPage } from './routes/accounts/logout';
-import BizNew from './routes/businesses/biz.new';
+import BizEdit from './routes/businesses/biz.edit';
+import BizView from './routes/businesses/biz.view';
 import BizClaim from './routes/businesses/biz.claim';
 import BizzList from './routes/businesses/list.public';
 
@@ -29,9 +30,10 @@ class App extends React.Component {
 
         <Route exact path='/user/profile' component={UserProfilePage} />
 
-        <Route exact path='/bizz/new' component={BizNew} />
+        <Route exact path='/bizz/new' component={BizEdit} />
+        <Route exact path='/bizz/:id' component={BizView} />
         <Route exact path='/bizz/claim/:id' component={BizClaim} />
-        <Route exact path='/bizz/edit/:id' component={BizNew} />
+        <Route exact path='/bizz/edit/:id' component={BizEdit} />
         <Route exact path='/bizz' component={BizzList} />
 
         <Route exact path='/admin/bizz' component={BizzAdmin} />

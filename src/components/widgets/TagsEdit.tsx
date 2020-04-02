@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as _ from 'lodash';
-import { Container, Form, FormControl, InputGroup, Badge} from 'react-bootstrap';
+import { Form, FormControl, InputGroup, Badge} from 'react-bootstrap';
 
 class TagLabel extends Component<any, any> {
     onDelete (e : any) {
@@ -14,7 +14,7 @@ class TagLabel extends Component<any, any> {
         const {tag} = this.props;
 
         return (
-            <Badge>{tag} <i className='fa fa-delete' onClick={this.onDelete.bind(this)} /></Badge>
+            <Badge>{tag} <i className='fas fa-times' onClick={this.onDelete.bind(this)} /></Badge>
         )
     }
 }
@@ -22,13 +22,15 @@ class TagLabel extends Component<any, any> {
 export class TagsView extends Component<any, any> {
     render () {
         const {tags} = this.props;
-        if (!tags) return;
+        if (!tags || tags.length === 0) {
+            return <div className='tags'>(none)</div>
+        }
 
-        return (<Container className="tags view">
+        return (<div className="tags">
             {tags.map((t : any)=> {
                 return <Badge>{t}</Badge>
             })}
-        </Container>)
+        </div>)
     }
 }
 
@@ -95,14 +97,11 @@ export default class TagsEdit extends Component<any, any> {
     }
 
     render () {
-        const {label, labelClass, FormControlClass, tagsClass} = this.props;
+        const {FormControlClass, tagsClass} = this.props;
 
         return (
-            <Container className="tags edit">
+            <div className="tags edit">
                 <Form onSubmit={this.onSubmitNewTag.bind(this)}>
-                    <div>
-                        <label className={labelClass}>Tags</label>
-
                         <FormControl className={FormControlClass} value={this.state.newTag} onChange={this.onChangeNewTag.bind(this)} />
                         <span className={tagsClass}>
                         {
@@ -111,11 +110,8 @@ export default class TagsEdit extends Component<any, any> {
                             })
                         }
                         </span>
-
-                        <div className='clear' />
-                    </div>
                 </Form>
-            </Container>
+            </div>
         )
     }
 }
