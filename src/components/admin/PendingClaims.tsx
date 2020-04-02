@@ -4,6 +4,7 @@ import { PhoneView } from "../widgets/Phone";
 import { fromNow } from "../../utils/formatter";
 import { Button, Alert, Table, Dropdown, DropdownButton, Badge } from "react-bootstrap";
 import Admin from "../../lib/admin/client";
+import { AddressView } from "../widgets/Address";
 
 class ClaimsRow extends React.Component<any, any> {
     state: any = {} as any;
@@ -36,7 +37,7 @@ class ClaimsRow extends React.Component<any, any> {
                 <td>{idx+1}</td>
                 <td className='biz-cell'>
                     <span className='name'>{biz.name}</span>
-                    <span className='info'>{biz.address.inputText}</span>
+                    <span className='info'><AddressView address={biz.address} /></span>
                     {biz.phone?
                     <span className='info'><PhoneView phone={biz.phone} /></span> : null
                     }

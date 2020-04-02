@@ -3,6 +3,7 @@ import { IBizLite } from '../../lib/business/business.interface';
 import { CardGroup, Card, Button, Badge } from 'react-bootstrap';
 import { PhoneView } from '../../components/widgets/Phone';
 import { Link } from 'react-router-dom';
+import { AddressView } from '../widgets/Address';
 
 class BizCard extends React.Component<any, any> {
 
@@ -25,7 +26,7 @@ class BizCard extends React.Component<any, any> {
                         <Badge variant='primary'>Claimed</Badge> : null
                     }
                 </Card.Title>
-                <Card.Text><i className="fas fa-map-marker-alt"></i>{biz.address.inputText}</Card.Text>
+                <Card.Text><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></Card.Text>
                 <Card.Text><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></Card.Text>
             </Card.Body>
         </Card>

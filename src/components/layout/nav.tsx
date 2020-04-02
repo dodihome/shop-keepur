@@ -10,7 +10,6 @@ class Navigation extends React.Component<any, any>  {
 
     renderWithUser () {
         const { user } = this.props;
-        console.log({user});
         const isSysAdmin = Dodi.isSysAdmin(user);
 
         return (

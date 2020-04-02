@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import { newPhoneNumber } from '../../helpers/contacts'
+import { newPhoneNumber, newAddress } from '../../helpers/contacts'
 import { PhoneEdit } from '../../components/widgets/Phone';
 import DefaultLayout from '../../components/layout/default';
 
@@ -8,10 +8,12 @@ import './biz.scss';
 import { WebsiteEdit } from '../../components/widgets/Website';
 import { withAuth } from '../../utils/withAuth';
 import Bizz from '../../lib/business/client';
+import { AddressEdit } from '../../components/widgets/Address';
 
-class BizEdit extends React.Component<any, any> {
+class BizNew extends React.Component<any, any> {
     state : any = {
-        phone : newPhoneNumber('business')
+        phone : newPhoneNumber('business'),
+        address: newAddress()
     } as any;
 
     onChangeName ( e : any) {
@@ -22,11 +24,9 @@ class BizEdit extends React.Component<any, any> {
         });
     }
 
-    onChangeAddress (e : any) {
-        e.preventDefault();
-
+    onUpdateAddress (address : any) {
         this.setState ({
-            address: e.target.value
+            address
         })
     }
 
@@ -73,6 +73,8 @@ class BizEdit extends React.Component<any, any> {
 
     render () {
         const { user } = this.props;
+        const canSubmit = (this.state.name && this.state.address.city && this.state.address.state) ? true: false;
+
         return (
             <DefaultLayout>
                 <div className='biz edit'>
@@ -86,12 +88,12 @@ class BizEdit extends React.Component<any, any> {
                             }
                             <Form>
                                 <Form.Group>
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label>Name (Required)</Form.Label>
                                     <Form.Control value={this.state.name} onChange={this.onChangeName.bind(this)} />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Address</Form.Label>
-                                    <Form.Control value={this.state.address} onChange={this.onChangeAddress.bind(this)} />
+                                    <Form.Label>Address (Required)</Form.Label>
+                                    <AddressEdit address={this.state.address} onUpdate={this.onUpdateAddress.bind(this)} />
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Phone Number</Form.Label>
@@ -102,7 +104,7 @@ class BizEdit extends React.Component<any, any> {
                                     <WebsiteEdit website={this.state.website} idx={0} onUpdate={this.onUpdateWebsite.bind(this)} />
                                 </Form.Group>
                                 <div className="control-buttons">
-                                    <Button type="submit" onClick={this.onSubmit.bind(this)}>Add</Button>
+                                    <Button type="submit" disabled={!canSubmit} onClick={this.onSubmit.bind(this)}>Add</Button>
                                     <Button variant="outline-secondary" onClick={this.onCancel.bind(this)}>Cancel</Button>
                                 </div>
                             </Form>
@@ -120,4 +122,4 @@ class BizEdit extends React.Component<any, any> {
     }
 }
 
-export default withAuth(BizEdit);
+export default withAuth(BizNew);

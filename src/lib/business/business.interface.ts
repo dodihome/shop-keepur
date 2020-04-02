@@ -5,12 +5,10 @@ export interface IPhoneNumber {
 }
 
 export interface IAddress {
-    inputText: string,
     street1 : string,
     street2 : string,
     city : string,
-    state: string,
-    zipcode: number
+    state: string
 }
 
 export interface ISocialMediaAccount {
@@ -22,7 +20,7 @@ export interface ISocialMediaAccount {
 
 export interface CreateBizDto {
     name: string,
-    address: string,
+    address: IAddress,
     phone: IPhoneNumber,
     website: string,
     createdBy: string
