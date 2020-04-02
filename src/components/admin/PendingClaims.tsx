@@ -2,13 +2,34 @@ import React from "react";
 
 import { PhoneView } from "../widgets/Phone";
 import { fromNow } from "../../utils/formatter";
-import { Button, Alert, Table } from "react-bootstrap";
-import Bizz from "../../lib/business/client";
+import { Button, Alert, Table, Dropdown, DropdownButton, Badge } from "react-bootstrap";
+import Admin from "../../lib/admin/client";
 
 class ClaimsRow extends React.Component<any, any> {
+    state: any = {} as any;
+    async onAccept (e : any) {
+        e.preventDefault();
+
+        const claimId = e.target.value;
+        const userId = this.props.user.id;
+        const { error } = await Admin.acceptClaim (claimId, userId);
+        if (error) {
+            this.setState({error});
+        }
+    }
+
+    async onReject (claimId: string, reason: string, e: any) {
+        e.preventDefault();
+
+        const userId = this.props.user.id;
+        const { error } = await Admin.rejectClaim (claimId, userId, reason);
+        if (error) {
+            this.setState({error});
+        }
+    }
+
     render () {
         const {biz, user, idx} = this.props;
-        const numOfClaims = biz.claims.length;
 
         return (
             <tr key={biz.id}>
@@ -27,12 +48,27 @@ class ClaimsRow extends React.Component<any, any> {
                     {
                         biz.claims.map((c)=>{
                             return <div key={c._id} className='claim'>
-                                <span className='claimed-by'>{c.userName} ({c.role})</span>
+                                <span className='claimed-by'>{c.claimedBy.displayName} ({c.role})</span>
                                 <span className='when'>{fromNow(c.ts)}</span>
-                                <span className='actions'>
-                                    <Button variant='outline-primary'>Accept</Button>
-                                    <Button variant='outline-danger'>Reject</Button>
-                                </span>
+                                {
+                                    c.processed?
+                                    <Badge variant='info'>{c.state}</Badge>
+                                    :
+                                    <span className='actions'>
+                                        <Button variant='outline-primary' value={c._id} onClick={this.onAccept.bind(this)}>Accept</Button>
+                                        <DropdownButton id='reject-button' title='Reject' variant='outline-danger'>
+                                            <Dropdown.Item onClick={this.onReject.bind(this, c._id, 'Called store')}>Called store</Dropdown.Item>
+                                            <Dropdown.Item onClick={this.onReject.bind(this, c._id, 'Checked business registration')}>Checked business registration</Dropdown.Item>
+                                        </DropdownButton>
+                                    </span> 
+                                }
+                                {
+                                    this.state.error? 
+                                    <div>
+                                        <Alert variant='danger'>{this.state.error}</Alert>
+                                    </div>
+                                    : null
+                                }
                             </div>
                         })
                     }
@@ -50,7 +86,7 @@ export class PendingClaims extends React.Component<any, any> {
             const { user } = this.props;
             if (!user) return;
     
-            const { error, bizz } = await Bizz.listPendingClaims(user.id);
+            const { error, bizz } = await Admin.listPendingClaims(user.id);
             this.setState ({
                 error, bizz
             })
@@ -66,7 +102,7 @@ export class PendingClaims extends React.Component<any, any> {
                 }
                 <Table responsive striped bordered hover className='biz-table'>
                     <thead>
-                        <tr>
+                       <tr>
                             <th>#</th>
                             <th>Business</th>
                             <th>Claimed By</th>

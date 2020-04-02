@@ -44,20 +44,7 @@ const Bizz = {
         const uri = '/api/bizz/manager-view?bizId=' + bizId + '&userId=' + userId;
         const resRaw = await fetch (uri);
         return (await resRaw.json());
-    },
-
-    listPendingClaims : async (userId: string) => {
-        const uri = '/api/bizz/list-pending-claims?userId=' + userId;
-        const resRaw = await fetch (uri);
-        return (await resRaw.json());
-    },
-
-    listUnclaimed : async (userId: string) => {
-        const uri = '/api/bizz/list-unclaimed?userId=' + userId;
-        const resRaw = await fetch (uri);
-        return (await resRaw.json());
     }
-    
 }
 
 export default Bizz;

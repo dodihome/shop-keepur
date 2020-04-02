@@ -25,8 +25,15 @@ export class PhoneView extends Component<any, any> {
 
         return (
             <span className="phoneNumber">
-                <span>{phone.number}</span>
-                <label>({phone.label})</label>
+                {
+                    phone?
+                    <React.Fragment>
+                        <span>{phone.number}</span>
+                        <label>({phone.label})</label>
+                    </React.Fragment>
+                    :
+                    <span>--</span>
+                }
             </span>
         )
     }

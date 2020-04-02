@@ -41,7 +41,9 @@
                 }
                 .actions {
                     display: inline-block;
-                    button {
+                    button,
+                    div.dropdown {
+                        display: inline-block;
                         margin-left: 5px;
                         margin-right: 5px;
                     }

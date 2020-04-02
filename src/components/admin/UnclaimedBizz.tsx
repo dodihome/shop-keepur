@@ -1,8 +1,8 @@
 import React from "react";
 
 import { PhoneView } from "../widgets/Phone";
-import Bizz from "../../lib/business/client";
 import { Alert, Table, Button } from "react-bootstrap";
+import Admin from "../../lib/admin/client";
 
 class UnclaimedRow extends React.Component<any, any> {
     render () {
@@ -40,7 +40,7 @@ export class Unclaimed extends React.Component<any, any> {
             const { user } = this.props;
             if (!user) return;
     
-            const { error, bizz } = await Bizz.listUnclaimed(user.id);
+            const { error, bizz } = await Admin.listUnclaimed(user.id);
             this.setState ({
                 error, bizz
             })

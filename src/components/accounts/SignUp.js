@@ -123,8 +123,6 @@ export default class SignUp extends Component {
             const res = await Accounts.signup (email, password, firstName, lastName);
             const {error} = res;
 
-            console.log({res});
-
             if (error) {
                 this.setState({
                     invalidEmailError: true,
