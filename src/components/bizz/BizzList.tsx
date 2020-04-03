@@ -1,6 +1,6 @@
 import React from 'react';
 import { IBizLite } from '../../lib/business/business.interface';
-import { CardGroup, Card, Button, Badge } from 'react-bootstrap';
+import { CardGroup, Card, Button, Badge, CardDeck } from 'react-bootstrap';
 import { PhoneView } from '../../components/widgets/Phone';
 import { Link } from 'react-router-dom';
 import { AddressView } from '../widgets/Address';
@@ -20,19 +20,20 @@ class BizCard extends React.Component<any, any> {
         const viewLink = '/bizz/' + biz.id;
 
         return <Card key={biz.id}>
+            <Card.Header>
+                <span className='title'><Link to={viewLink}>{biz.name}</Link></span> 
+                {
+                    showClaimButton? 
+                    <Link to={claimLink}><Button size="sm" variant='link'>(Claim Business)</Button></Link>
+                    : null
+                }
+                {
+                    biz.isClaimed ?
+                    <Badge variant='primary'>Claimed</Badge> : null
+                }
+            </Card.Header>
+
             <Card.Body>
-                <Card.Title>
-                    <span><Link to={viewLink}>{biz.name}</Link></span> 
-                    {
-                        showClaimButton? 
-                        <Link to={claimLink}><Button size="sm" variant='link'>(Claim Business)</Button></Link>
-                        : null
-                    }
-                    {
-                        biz.isClaimed ?
-                        <Badge variant='primary'>Claimed</Badge> : null
-                    }
-                </Card.Title>
                 <Card.Text><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></Card.Text>
                 {
                     biz.phone?
@@ -56,13 +57,13 @@ export class BizzList extends React.Component<any, any> {
                     : null
                     }
                 </div>
-                <CardGroup>
+                <CardDeck>
                 {
                     bizz.map((biz: IBizLite) => {
                         return <BizCard key={biz.id} biz={biz} history={this.props.history} user={this.props.user} />
                     })
                 }
-                </CardGroup>
+                </CardDeck>
             </div>
         )
     }

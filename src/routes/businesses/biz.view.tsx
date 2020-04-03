@@ -7,6 +7,8 @@ import { AddressView } from "../../components/widgets/Address";
 import { PhoneView } from "../../components/widgets/Phone";
 import { Link } from "react-router-dom";
 import TagsEdit, { TagsView } from "../../components/widgets/TagsEdit";
+import { InventoryEdit, InventoryView } from "../../components/widgets/Inventory";
+import { IInventoryItem } from "../../lib/business/business.interface";
 
 class BizView extends React.Component<any, any> {
     state : any = {} as any;
@@ -40,10 +42,44 @@ class BizView extends React.Component<any, any> {
         })
     }
 
+    onEditInventory (e: any) {
+        e.preventDefault();
+        this.setState ({
+            isEditInventory: true
+        })
+    }
+
+    onDoneInventoryEdit (e: any) {
+        e.preventDefault();
+        this.setState({
+            isEditInventory: false
+        })
+    }
+
     onUpdateTags (tags: string[]) {
         const { biz } = this.state;
         biz.tags = tags;
         this.setState({biz});
+    }
+
+    async onUpdateInventoryItem (inventoryItem : any) {
+        const {error} = await Bizz.updateInventoryItem(inventoryItem, this.state.biz._id, this.props.user.id)
+        if (error) this.setState({error});
+    }
+
+    async onDeleteWishlistItem (item : IInventoryItem) {
+        const { error } = await Bizz.deleteWishlistItem(item._id, this.state.biz._id, this.props.user.id);
+        if (error) this.setState({error});
+    }
+
+    async onUpvoteWishlistItem (item : IInventoryItem) {
+        const { error } = await Bizz.upVoteWishlistItem(item._id, this.state.biz._id);
+        if (error) this.setState({error});
+    }
+
+    async onDownvoteWishlistItem (item : IInventoryItem) {
+        const { error } = await Bizz.downVoteWishlistItem(item._id, this.state.biz._id);
+        if (error) this.setState({error});
     }
 
     render () {
@@ -109,8 +145,29 @@ class BizView extends React.Component<any, any> {
                             </React.Fragment>
                         }
                     </div>
-                    <div className='inventory'>
-
+                    <div className='biz-inventory'>
+                        <div className='heading'>
+                            <span className='title'>Products</span>
+                            {
+                                showEditButton?
+                                    this.state.isEditInventory?
+                                    <Button variant='link' onClick={this.onDoneInventoryEdit.bind(this)}>Done</Button>
+                                    :
+                                    <Button variant='link' onClick={this.onEditInventory.bind(this)}>Update</Button>
+                                : null
+                            }
+                        </div>
+                        {
+                            this.state.isEditInventory?
+                            <InventoryEdit items={biz.inventory} 
+                                onUpdate={this.onUpdateInventoryItem.bind(this)}
+                                onDelete={this.onDeleteWishlistItem.bind(this)} />
+                            :
+                            <InventoryView items={biz.inventory} 
+                                onUpvote={this.onUpvoteWishlistItem.bind(this)}
+                                onDownvote={this.onDownvoteWishlistItem.bind(this)}
+                            />
+                        }
                     </div>
                 </div>
             </DefaultLayout>

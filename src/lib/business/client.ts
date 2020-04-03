@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { CreateBizDto, IBizConsumerView, UpdateBizDto } from './business.interface';
+import { CreateBizDto, IBizConsumerView, UpdateBizDto, IInventoryItem } from './business.interface';
 import { IUserProfile } from '../accounts/accounts.interface';
 
 const Bizz = {
@@ -37,6 +37,58 @@ const Bizz = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({bizId, tags, userId})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    updateInventoryItem : async (item: IInventoryItem, bizId: string, userId: string) => {
+        const uri = '/api/bizz/update-inventory-item';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({item, bizId, userId})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    deleteWishlistItem: async (itemId: string, bizId: string, userId: string) => {
+        const uri = '/api/bizz/delete-wishlist-item';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({itemId, bizId, userId})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    upVoteWishlistItem: async (itemId: string, bizId: string) => {
+        const uri = '/api/bizz/upvote-wishlist-item';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({itemId, bizId})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    downVoteWishlistItem: async (itemId: string, bizId: string) => {
+        const uri = '/api/bizz/downvote-wishlist-item';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({itemId, bizId})
         });
         const res = await resRaw.json();
         return res;

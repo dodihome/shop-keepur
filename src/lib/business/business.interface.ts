@@ -36,15 +36,26 @@ export interface UpdateBizDto {
     updatedBy: string
 }
 
-export interface IProduct {
+export interface ITaggable {
+    tags: string[]
+}
+
+export interface IProduct extends ITaggable {
     name: string,
     description: string,
-    photos: any []
+}
+
+export enum InventoryStatus {
+    IN_STOCK,
+    OUT_OF_STOCK,
+    UNKNOWN
 }
 
 export interface IInventoryItem {
+    _id: string,
     product: IProduct,
-    isInstock: boolean,
+    votes: number,
+    status: InventoryStatus,
     timestamp: Date
 }
 

@@ -27,8 +27,8 @@ export class TagsView extends Component<any, any> {
         }
 
         return (<div className="tags">
-            {tags.map((t : any)=> {
-                return <Badge>{t}</Badge>
+            {tags.map((t, idx)=> {
+                return <Badge key={idx}>{t}</Badge>
             })}
         </div>)
     }
