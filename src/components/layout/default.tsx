@@ -4,6 +4,8 @@ import Nav from './nav';
 import Footer from './footer';
 import MainContent from "./main";
 
+import './layout.scss';
+
 class DefaultLayout extends React.Component <any, any> {
 
     render () {

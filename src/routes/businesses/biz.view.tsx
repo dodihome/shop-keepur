@@ -2,7 +2,7 @@ import React from "react";
 import { withAuth } from "../../utils/withAuth";
 import Bizz from "../../lib/business/client";
 import DefaultLayout from "../../components/layout/default";
-import { Alert, Badge, Button } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import { AddressView } from "../../components/widgets/Address";
 import { PhoneView } from "../../components/widgets/Phone";
 import { Link } from "react-router-dom";

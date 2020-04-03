@@ -243,16 +243,6 @@ export class InventoryEdit extends React.Component<any, any> {
                 <Card className='unknown'>
                     <Card.Header>Wish To Know <i className='fa fa-question-circle' /></Card.Header>
                     <Card.Body>
-                        <Card.Title>
-                            <Form onSubmit={this.onAddUnknown.bind(this)}>
-                                <InputGroup>
-                                    <Form.Control name='unknown' value={this.state.unknown} onChange={this.onChange.bind(this)} />
-                                    <InputGroup.Append>
-                                        <Button type='submit' variant='secondary'>Add</Button>
-                                    </InputGroup.Append>
-                                </InputGroup>
-                            </Form>
-                        </Card.Title>
                         <ListGroup className='items'>
                         {
                             unknown.map((item, idx)=> {
@@ -272,6 +262,16 @@ export class InventoryEdit extends React.Component<any, any> {
                         }
                         </ListGroup>
                     </Card.Body>
+                    <Card.Footer>
+                        <Form onSubmit={this.onAddUnknown.bind(this)}>
+                            <InputGroup>
+                                <Form.Control name='unknown' value={this.state.unknown} onChange={this.onChange.bind(this)} />
+                                <InputGroup.Append>
+                                    <Button type='submit' variant='secondary'>Add</Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Form>
+                    </Card.Footer>
                 </Card>
             </CardDeck>
         )

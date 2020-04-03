@@ -144,7 +144,7 @@ class BizNew extends React.Component<any, any> {
                                     <WebsiteEdit website={this.state.website} idx={0} onUpdate={this.onUpdateWebsite.bind(this)} />
                                 </Form.Group>
                                 <div className="control-buttons">
-                        <Button type="submit" disabled={!canSubmit} onClick={this.onSubmit.bind(this)}>{buttonLabel}</Button>
+                                    <Button type="submit" disabled={!canSubmit} onClick={this.onSubmit.bind(this)}>{buttonLabel}</Button>
                                     <Button variant="outline-secondary" onClick={this.onCancel.bind(this)}>Cancel</Button>
                                 </div>
                             </Form>
