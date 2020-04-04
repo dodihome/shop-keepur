@@ -2,6 +2,7 @@ import React from "react";
 import { Form, InputGroup, Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert } from "react-bootstrap";
 import { fromNow } from "../../utils/formatter";
 import { InventoryStatus, IInventoryItem } from "../../lib/business/business.interface";
+import { ProductSearch } from "../products/ProductSearch";
 
 const BasicItems = (props : any) => {
     const { items } = props;
@@ -134,23 +135,25 @@ export class InventoryEdit extends React.Component<any, any> {
         this.setState(newState);
     }
 
-    onAddUnknown (e: any) {
-        e.preventDefault();
-        const unknownItem = this.state.unknown.toLowerCase();
+    onAddUnknown (product: any) {
+        console.log({product});
         const {items} = this.props;
 
         let found;
         items.forEach ((item) => {
-            if (unknownItem === item.product.name.toLowerCase()) {
+            if (product.id === item.product.id) {
                 found = item;
             }
         })
 
         if (!found) {
-            found = {product: {name: this.state.unknown}};
+            found = {product: {name: product.name}};
+            if (!product.id.startsWith('new-')) {
+                found.product.id = product.id;
+            }
         }
         found.status = InventoryStatus.UNKNOWN;
-        this.props.onUpdate(found);        
+        this.props.onUpdate(found);    
     }
 
     onRemove ( item: any, e: any) {
@@ -258,14 +261,10 @@ export class InventoryEdit extends React.Component<any, any> {
                 <Card className='unknown'>
                     <Card.Header>Wish To Know <i className='fa fa-question-circle' />
                     {user?
-                        <Form onSubmit={this.onAddUnknown.bind(this)}>
-                            <InputGroup>
-                                <Form.Control name='unknown' value={this.state.unknown} onChange={this.onChange.bind(this)} />
-                                <InputGroup.Append>
-                                    <Button type='submit' variant='secondary'>Add</Button>
-                                </InputGroup.Append>
-                            </InputGroup>
-                        </Form>
+                        <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
+                            isSearching={false}
+                            onAdd={this.onAddUnknown.bind(this)}
+                            onSearch={this.onAddUnknown.bind(this)} />
                         : null
                     }
 

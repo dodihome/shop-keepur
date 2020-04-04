@@ -35,14 +35,14 @@ class HomePage extends React.Component <any, any> {
         this.setState({error, products});
     }
 
-    async onSearch (productId: string) {
-        const url = '/search?p=' + productId;
+    async onSearch (product: any) {
+        const url = '/search?p=' + product.id;
         this.props.history.push(url);
     }
 
-    async onAddProduct (productName: string) {
-        const {error, product} = await Products.add(productName);
-        this.onSearch (product.id);
+    async onAddProduct (newProduct: any) {
+        const {error, product} = await Products.add(newProduct.name);
+        this.onSearch (product);
     }
 
     render () {

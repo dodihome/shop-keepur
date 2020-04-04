@@ -163,6 +163,7 @@ const Bizz = {
             body: JSON.stringify({productId, location: userLocation})
         });
         const res = await resRaw.json();
+
         return res;
     }
 }

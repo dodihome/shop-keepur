@@ -7,3 +7,28 @@ body {
   display: inline-block;
   margin-left: 10px;
 }
+
+div.divider {
+  display: flex;
+  align-items: center;
+}
+
+div.divider hr {
+  width: 100%;
+}
+
+div.divider span {
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.name-value-pair span {
+  display: inline-block;
+}
+
+.name-value-pair span.name {
+  margin-right: 10px;
+}

@@ -1,7 +1,9 @@
 import React from 'react';
 
 export const Divider = (props : any) => {
-    if (props.text) {
+    if (props.hidden) {
+        return <div style={{height: '20px'}} />;
+    } else if (props.text) {
         return (
             <div className='divider'>
                 <hr />

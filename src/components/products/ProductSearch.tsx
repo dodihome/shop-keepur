@@ -14,6 +14,14 @@ export class ProductSearch extends React.Component<any, any> {
         isSearching: false
     } as any;
 
+    componentDidUpdate (oldProps : any, oldState: any) {
+        if (oldState.isSearching !== this.props.isSearching) {
+            this.setState({
+                isSearching: this.props.isSearching
+            })
+        }
+    }
+
     onChange ( selected: any) {
         console.log(selected);
         this.setState({selected, isSearching: true});
@@ -27,9 +35,9 @@ export class ProductSearch extends React.Component<any, any> {
         if (this.state.selected && this.state.selected[0]) {
 
             if (this.state.selected[0].id.startsWith('new-id')) {
-                this.props.onAdd(this.state.selected[0].name);
+                this.props.onAdd(this.state.selected[0]);
             } else {
-                this.props.onSearch(this.state.selected[0].id);
+                this.props.onSearch(this.state.selected[0]);
             }
         } else {
             this.setState({isSearching: false});
@@ -57,18 +65,26 @@ export class ProductSearch extends React.Component<any, any> {
         if (this.state.selected && this.state.selected[0] && this.state.selected[0].id.startsWith('new-id')) {
             buttonLabel = 'Add';
         }
+
+        const { hideLabel } = this.props;
+        let { size, placeholder } = this.props;
+        if (!size) size = 'lg';
+        if (!placeholder) placeholder = 'ex. toilet paper';
         return (
             <Form onSubmit={this.onSubmit.bind(this)}>
                 <InputGroup size='lg'>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>Find</InputGroup.Text>
-                    </InputGroup.Prepend>
+                    {
+                        hideLabel? null :
+                        <InputGroup.Prepend>
+                            <InputGroup.Text>Find</InputGroup.Text>
+                        </InputGroup.Prepend>
+                    }
                     <AsyncTypeahead {...this.state} size='lg'
                         id='product-search' onChange={this.onChange.bind(this)}
                         labelKey='name'
                         minLength={3}
                         onSearch={this.onSearch.bind(this)}
-                        placeholder='products, e.g. toilet paper...'
+                        placeholder={placeholder}
                         selected={this.state.selected} />
                     <InputGroup.Append>
                         <Button variant='secondary' type='submit' disabled={this.state.isSearching}>{buttonLabel}</Button>
