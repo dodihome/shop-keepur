@@ -5,9 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { withAuth } from '../../utils/withAuth';
 import Dodi from '../../utils/Dodi';
+import { UserLocation } from '../widgets/UserLocation';
 
 class Navigation extends React.Component<any, any>  {
-
     renderWithUser () {
         const { user } = this.props;
         const isSysAdmin = Dodi.isSysAdmin(user);
@@ -16,7 +16,6 @@ class Navigation extends React.Component<any, any>  {
             <Nav>
                 <Nav.Link href="/products">Products</Nav.Link>
                 <Nav.Link href="/bizz">Businesses</Nav.Link>
-                <Nav.Link>&nbsp;|&nbsp;</Nav.Link>
                 <NavDropdown title={user.displayName} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
@@ -41,20 +40,23 @@ class Navigation extends React.Component<any, any>  {
             <Nav>
                 <Nav.Link href="/products">Products</Nav.Link>
                 <Nav.Link href="/bizz">Businesses</Nav.Link>
-                <Nav.Link>&nbsp;|&nbsp;</Nav.Link>
                 <Nav.Link href='/user/login'>Login</Nav.Link>
             </Nav>
         )
     }
 
     render () {
+        const { homepage } = this.props;
+
         return (
             <Navbar bg="dark" variant="dark" fixed='top' expand='md'>
                 <Navbar.Brand href="/">Shop Keepur</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <div className='headline'>
-                        <Navbar.Text>Top level message</Navbar.Text>
+                        <Navbar.Text>
+                            { homepage? null : <UserLocation /> }
+                        </Navbar.Text>
                     </div>
                     {
                         this.props.user? 

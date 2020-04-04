@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { IUserProfile } from "../lib/accounts/accounts.interface";
+import Cookies from 'js-cookie';
 
 export default class Dodi {
     private static _dodi = new Dodi();
@@ -34,5 +35,10 @@ export default class Dodi {
         }
 
         return (_.indexOf(user.systemRoles, 'admin') >= 0);
+    }
+
+    static location () : string {
+        const location = Cookies.get('location');    
+        return location;        
     }
 }

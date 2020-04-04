@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Home from './components/Blank';
+import Blank from './components/Blank';
+import HomePage from './routes/homepage';
 import { LoginPage } from './routes/accounts/login';
 import { SignUpPage } from './routes/accounts/sign-up';
 import { ForgotPasswordPage } from './routes/accounts/forgot-password';
@@ -20,7 +21,7 @@ class App extends React.Component {
   render () {
     return (
       <Router>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={HomePage} />
         <Route exact path='/user/login' component={LoginPage} />
         <Route exact path='/user/logout' component={LogoutPage} />
         <Route exact path='/user/sign-up' component={SignUpPage} />
