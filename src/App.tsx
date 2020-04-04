@@ -16,6 +16,8 @@ import BizClaim from './routes/businesses/biz.claim';
 import BizzList from './routes/businesses/list.public';
 
 import BizzAdmin from './routes/admin/bizz';
+import { ProductsPage } from './routes/products/list';
+import SearchPage from './routes/search';
 
 class App extends React.Component {
   render () {
@@ -36,6 +38,9 @@ class App extends React.Component {
         <Route exact path='/bizz/claim/:id' component={BizClaim} />
         <Route exact path='/bizz/edit/:id' component={BizEdit} />
         <Route exact path='/bizz' component={BizzList} />
+
+        <Route exact path='/search' component={SearchPage} />
+        <Route exact path='/products' component={ProductsPage} />
 
         <Route exact path='/admin/bizz' component={BizzAdmin} />
       </Router>

@@ -1,0 +1,16 @@
+.product {
+    padding-top: 20px;
+    h1 {
+        font-size: 1.5em;
+    }
+
+    &.list {
+        .tag-cloud {
+            margin-top: 20px;
+            span {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }    
+    }
+}

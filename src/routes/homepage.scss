@@ -6,6 +6,16 @@
         margin: auto;
     }
 
+    .products {
+        .tag-cloud {
+            margin-top: 20px;
+            span {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }    
+    }
+
     .product-list {
         margin-top: 20px;
 

@@ -8,12 +8,10 @@ import { Alert } from 'react-bootstrap';
 import { withLocation } from '../utils/withLocation';
 import { ProductSearch } from '../components/products/ProductSearch';
 
-import { isMobile } from 'react-device-detect';
 import Products from '../lib/product/client';
-import { ProductList } from '../components/products/ProductList';
-import Bizz from '../lib/business/client';
 import { BizzList } from '../components/bizz/BizzList';
 import { withAuth } from '../utils/withAuth';
+import { TagCloud } from '../components/products/TagCloud';
 
 const SetUserLocation = (props: any)=>{
     return (
@@ -38,10 +36,8 @@ class HomePage extends React.Component <any, any> {
     }
 
     async onSearch (productId: string) {
-        const {error, bizz} = await Bizz.searchByProduct (productId);
-
-        console.log('search result', bizz);
-        this.setState({error, bizz});
+        const url = '/search?p=' + productId;
+        this.props.history.push(url);
     }
 
     async onAddProduct (productName: string) {
@@ -57,7 +53,10 @@ class HomePage extends React.Component <any, any> {
                 {
                     userLocation? null : <SetUserLocation />
                 }
-                    <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                    <div className='products'>
+                        <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                        <TagCloud products={this.state.products} />
+                    </div>
                     <div className='search-result biz list'>
                         <BizzList bizz={this.state.bizz} user={user} history={history} />
                     </div>
