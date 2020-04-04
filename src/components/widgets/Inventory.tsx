@@ -134,44 +134,6 @@ export class InventoryEdit extends React.Component<any, any> {
         this.setState(newState);
     }
 
-    onAddInStock ( e: any) {
-        e.preventDefault();
-        const inStockItem = this.state.inStock.toLowerCase();
-        const {items} = this.props;
-
-        let found;
-        items.forEach ((item) => {
-            if (inStockItem === item.product.name.toLowerCase()) {
-                found = item;
-            }
-        })
-
-        if (!found) {
-            found = {product: {name: this.state.inStock}};
-        }
-        found.status = InventoryStatus.IN_STOCK;
-        this.props.onUpdate(found);        
-    }
-
-    onAddOutOfStock (e : any) {
-        e.preventDefault();
-        const outOfStockItem = this.state.outOfStock.toLowerCase();
-        const {items} = this.props;
-
-        let found;
-        items.forEach ((item) => {
-            if (outOfStockItem === item.product.name.toLowerCase()) {
-                found = item;
-            }
-        })
-
-        if (!found) {
-            found = {product: {name: this.state.outOfStock}};
-        }
-        found.status = InventoryStatus.OUT_OF_STOCK;
-        this.props.onUpdate(found);        
-    }
-
     onAddUnknown (e: any) {
         e.preventDefault();
         const unknownItem = this.state.unknown.toLowerCase();
@@ -229,7 +191,7 @@ export class InventoryEdit extends React.Component<any, any> {
     }
 
     render () {
-        const { items } = this.props;
+        const { items, user } = this.props;
 
         console.log({items});
 
@@ -260,7 +222,11 @@ export class InventoryEdit extends React.Component<any, any> {
                                         <div className='name'>{item.product.name}</div>
                                         <div className='when'>{fromNow(item.timestamp)}</div>
                                     </div>
-                                    <Button variant='outline-secondary' onClick={this.onRemove.bind(this, item)}>Ran Out</Button>
+                                    {
+                                        user?
+                                        <Button variant='outline-secondary' onClick={this.onRemove.bind(this, item)}>Ran Out</Button>
+                                        : null
+                                    }
                                 </ListGroup.Item>
                             })
                         }
@@ -278,7 +244,11 @@ export class InventoryEdit extends React.Component<any, any> {
                                         <div className='name'>{item.product.name}</div>
                                         <div className='when'>{fromNow(item.timestamp)}</div>
                                     </div>
-                                    <Button variant='outline-secondary' onClick={this.onRemove.bind(this, item)}>Re-Stocked</Button>
+                                    {
+                                        user?
+                                        <Button variant='outline-secondary' onClick={this.onRemove.bind(this, item)}>Re-Stocked</Button>
+                                        : null
+                                    }
                                 </ListGroup.Item>
                             })
                         }
@@ -286,7 +256,20 @@ export class InventoryEdit extends React.Component<any, any> {
                     </Card.Body>
                 </Card>
                 <Card className='unknown'>
-                    <Card.Header>Wish To Know <i className='fa fa-question-circle' /></Card.Header>
+                    <Card.Header>Wish To Know <i className='fa fa-question-circle' />
+                    {user?
+                        <Form onSubmit={this.onAddUnknown.bind(this)}>
+                            <InputGroup>
+                                <Form.Control name='unknown' value={this.state.unknown} onChange={this.onChange.bind(this)} />
+                                <InputGroup.Append>
+                                    <Button type='submit' variant='secondary'>Add</Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Form>
+                        : null
+                    }
+
+                    </Card.Header>
                     <Card.Body>
                         <ListGroup className='items'>
                         {
@@ -300,27 +283,21 @@ export class InventoryEdit extends React.Component<any, any> {
                                             <Button variant='outline-primary' onClick={this.onDownvote.bind(this, item)}><i className='fa fa-thumbs-down' /></Button>
                                         </ButtonGroup>
                                     </div>
-                                    <DropdownButton id='updateUnknownItem' title='Mark As' variant='outline-secondary'>
-                                        <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.IN_STOCK)}>In Stock</Dropdown.Item>
-                                        <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.OUT_OF_STOCK)}>Out Of Stock</Dropdown.Item>
-                                        <Dropdown.Divider />
-                                        <Dropdown.Item onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Dropdown.Item>
-                                    </DropdownButton>
+                                    {
+                                        user?
+                                        <DropdownButton id='updateUnknownItem' title='Mark As' variant='outline-secondary'>
+                                            <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.IN_STOCK)}>In Stock</Dropdown.Item>
+                                            <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.OUT_OF_STOCK)}>Out Of Stock</Dropdown.Item>
+                                            <Dropdown.Divider />
+                                            <Dropdown.Item onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Dropdown.Item>
+                                        </DropdownButton>
+                                        : null
+                                    }
                                 </ListGroup.Item>
                             })
                         }
                         </ListGroup>
                     </Card.Body>
-                    <Card.Footer>
-                        <Form onSubmit={this.onAddUnknown.bind(this)}>
-                            <InputGroup>
-                                <Form.Control name='unknown' value={this.state.unknown} onChange={this.onChange.bind(this)} />
-                                <InputGroup.Append>
-                                    <Button type='submit' variant='secondary'>Add</Button>
-                                </InputGroup.Append>
-                            </InputGroup>
-                        </Form>
-                    </Card.Footer>
                 </Card>
             </CardDeck>
         )

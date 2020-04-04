@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import TagsEdit, { TagsView } from "../../components/widgets/TagsEdit";
 import { InventoryEdit, InventoryView } from "../../components/widgets/Inventory";
 import { IInventoryItem } from "../../lib/business/business.interface";
+import { fromNow } from "../../utils/formatter";
 
 class BizView extends React.Component<any, any> {
     state : any = {} as any;
@@ -189,16 +190,8 @@ class BizView extends React.Component<any, any> {
                     <div className='biz-inventory'>
                         <div className='heading'>
                             <span className='title'>Products</span>
-                            {
-                                showEditButton?
-                                    this.state.isEditInventory?
-                                    <Button variant='link' onClick={this.onDoneInventoryEdit.bind(this)}>Done</Button>
-                                    :
-                                    <Button variant='link' onClick={this.onEditInventory.bind(this)}>Update</Button>
-                                : null
-                            }
                         </div>
-                        <InventoryEdit items={biz.inventory} 
+                        <InventoryEdit items={biz.inventory} user={user}
                             onUpdate={this.onUpdateInventoryItem.bind(this)}
                             onDelete={this.onDeleteWishlistItem.bind(this)} 
                             onUpvote={this.onUpvoteWishlistItem.bind(this)}
