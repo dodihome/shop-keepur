@@ -37,9 +37,6 @@ class HomePage extends React.Component <any, any> {
 
     async onSearch (productId: string) {
         const url = '/search?p=' + productId;
-        this.setState({
-            isLoading: true
-        })
         this.props.history.push(url);
     }
 

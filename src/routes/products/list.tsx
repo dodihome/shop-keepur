@@ -18,10 +18,8 @@ export class ProductsPage extends React.Component<any, any> {
     }
 
     async onSearch (productId: string) {
-        const {error, bizz} = await Bizz.searchByProduct (productId);
-
-        console.log('search result', bizz);
-        this.setState({error, bizz});
+        const url = '/search?p=' + productId;
+        this.props.history.push(url);
     }
 
     async onAddProduct (productName: string) {
