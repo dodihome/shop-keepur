@@ -1,14 +1,15 @@
 import React from "react";
-import { Form, InputGroup, Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert } from "react-bootstrap";
+import { Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert } from "react-bootstrap";
 import { fromNow } from "../../utils/formatter";
 import { InventoryStatus, IInventoryItem } from "../../lib/business/business.interface";
 import { ProductSearch } from "../products/ProductSearch";
+import { titleCase } from "title-case";
 
 const BasicItems = (props : any) => {
     const { items } = props;
 
     const names = items.map((ii)=> {
-        return ii.product.name;
+        return titleCase(ii.product.name);
     });
 
     return (<span className='items'>{names.join(', ')}</span>)
@@ -222,7 +223,7 @@ export class InventoryEdit extends React.Component<any, any> {
                             inStock.map((item, idx)=> {
                                 return <ListGroup.Item key={idx} action className='item'>
                                     <div>
-                                        <div className='name'>{item.product.name}</div>
+                                        <div className='name'>{titleCase(item.product.name)}</div>
                                         <div className='when'>{fromNow(item.timestamp)}</div>
                                     </div>
                                     {
@@ -244,7 +245,7 @@ export class InventoryEdit extends React.Component<any, any> {
                             outOfStock.map((item, idx)=> {
                                 return <ListGroup.Item key={idx} action className='item'>
                                     <div>
-                                        <div className='name'>{item.product.name}</div>
+                                        <div className='name'>{titleCase(item.product.name)}</div>
                                         <div className='when'>{fromNow(item.timestamp)}</div>
                                     </div>
                                     {
@@ -259,7 +260,7 @@ export class InventoryEdit extends React.Component<any, any> {
                     </Card.Body>
                 </Card>
                 <Card className='unknown'>
-                    <Card.Header>Wish To Know <i className='fa fa-question-circle' />
+                    <Card.Header>Watch List <i className='fa fa-question-circle' />
                     {user?
                         <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
                             isSearching={false}
@@ -275,11 +276,10 @@ export class InventoryEdit extends React.Component<any, any> {
                             unknown.map((item, idx)=> {
                                 return <ListGroup.Item key={idx} action className='item'>
                                     <div>
-                                        <div className='name'>{item.product.name}</div>
+                                        <div className='name'>{titleCase(item.product.name)}</div>
                                         <ButtonGroup className='votes'>
-                                            <Button variant='outline-primary' onClick={this.onUpvote.bind(this, item)}><i className='fa fa-thumbs-up' /></Button>
                                             <Button variant='outline-primary' disabled>{item.votes? item.votes : 0}</Button>
-                                            <Button variant='outline-primary' onClick={this.onDownvote.bind(this, item)}><i className='fa fa-thumbs-down' /></Button>
+                                            <Button variant='outline-primary' onClick={this.onUpvote.bind(this, item)}><i className='fa fa-thumbs-up' /></Button>
                                         </ButtonGroup>
                                     </div>
                                     {

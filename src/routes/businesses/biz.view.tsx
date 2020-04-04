@@ -8,22 +8,25 @@ import { AddressView } from "../../components/widgets/Address";
 import { PhoneView } from "../../components/widgets/Phone";
 import { Link } from "react-router-dom";
 import TagsEdit, { TagsView } from "../../components/widgets/TagsEdit";
-import { InventoryEdit, InventoryView } from "../../components/widgets/Inventory";
+import { InventoryEdit } from "../../components/widgets/Inventory";
 import { IInventoryItem } from "../../lib/business/business.interface";
 import { fromNow } from "../../utils/formatter";
 
 class BizView extends React.Component<any, any> {
     state : any = {} as any;
 
-    async componentDidMount () {
+    async _load () {
         const bizId = this.props.match.params.id;
-        const user = this.props.user;
         const {error, biz} = await Bizz.consumerView(bizId);
         if (error) {
             this.setState({error});
         } else {
             this.setState ({biz});
-        }    
+        }
+    }
+
+    async componentDidMount () {
+        this._load();
     }
 
     async onDoneTagsEdit (e : any) {
@@ -66,60 +69,22 @@ class BizView extends React.Component<any, any> {
 
     async onUpdateInventoryItem (inventoryItem : any) {
         const {error} = await Bizz.updateInventoryItem(inventoryItem, this.state.biz._id, this.props.user.id)
-        if (error) this.setState({error});
-        else {
-            const { biz } = this.state;
-            if (inventoryItem._id) {
-                biz.inventory.forEach ((ii) => {
-                    if (ii._id === inventoryItem._id) {
-                        ii = inventoryItem;
-                    }
-                })    
-            } else {
-                biz.inventory.push(inventoryItem);
-            }
-            this.setState({biz});
-        }
+        this._load();
     }
 
     async onDeleteWishlistItem (item : IInventoryItem) {
         const { error } = await Bizz.deleteWishlistItem(item._id, this.state.biz._id, this.props.user.id);
-        if (error) this.setState({error});
-        else {
-            const { biz } = this.state;
-            _.remove(biz.inventory, (ii : IInventoryItem) => {
-                return (ii._id === item._id);
-            })
-            this.setState({biz});
-        }
+        this._load();
     }
 
     async onUpvoteWishlistItem (item : IInventoryItem) {
         const { error } = await Bizz.upVoteWishlistItem(item._id, this.state.biz._id);
-        if (error) this.setState({error});
-        else {
-            const { biz } = this.state;
-            biz.inventory.forEach ((ii) => {
-                if (ii._id === item._id) {
-                    ii.votes++;
-                }
-            })
-            this.setState({biz});
-        }
+        this._load();
     }
 
     async onDownvoteWishlistItem (item : IInventoryItem) {
         const { error } = await Bizz.downVoteWishlistItem(item._id, this.state.biz._id);
-        if (error) this.setState({error});
-        else {
-            const { biz } = this.state;
-            biz.inventory.forEach ((ii) => {
-                if (ii._id === item._id) {
-                    ii.votes--;
-                }
-            })
-            this.setState({biz});
-        }
+        this._load();
     }
 
     render () {
