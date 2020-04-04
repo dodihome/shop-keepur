@@ -37,7 +37,7 @@ export class UserLocation extends React.Component < any, any> {
                         onChange={this.onChange.bind(this)}
                     />
                     <InputGroup.Append>
-                        <Button type='submit'>Set</Button>
+                        <Button variant='secondary' type='submit'>Set</Button>
                     </InputGroup.Append>
                 </InputGroup>
             </Form>

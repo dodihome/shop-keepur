@@ -5,4 +5,16 @@
         max-width: 500px;
         margin: auto;
     }
+
+    .product-list {
+        margin-top: 20px;
+
+        .item {
+            display: block;
+        }
+    }
+
+    .search-result {
+        margin-top: 20px;
+    }
 }

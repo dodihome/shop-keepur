@@ -61,24 +61,15 @@ class BizCard extends React.Component<any, any> {
 
 export class BizzList extends React.Component<any, any> {
     render () {
-        const { user, bizz } = this.props;
+        const { bizz } = this.props;
         return (
-            <div className='biz list'>
-                <div className='heading'>
-                    <h1>Stores</h1>
-                    {user ?
-                    <Link to='/bizz/new'><Button variant='outline-primary'>+ Add Store</Button></Link>
-                    : null
-                    }
-                </div>
-                <CardDeck>
-                {
-                    bizz.map((biz: IBizLite) => {
-                        return <BizCard key={biz.id} biz={biz} history={this.props.history} user={this.props.user} />
-                    })
-                }
-                </CardDeck>
-            </div>
+            <CardDeck>
+            {
+                bizz.map((biz: IBizLite) => {
+                    return <BizCard key={biz.id} biz={biz} history={this.props.history} user={this.props.user} />
+                })
+            }
+            </CardDeck>
         )
     }
 }

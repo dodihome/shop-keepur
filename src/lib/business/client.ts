@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { CreateBizDto, IBizConsumerView, UpdateBizDto, IInventoryItem } from './business.interface';
 import { IUserProfile } from '../accounts/accounts.interface';
+import Dodi from '../../utils/Dodi';
 
 const Bizz = {
     addBiz : async (biz : CreateBizDto) => {
@@ -147,6 +148,21 @@ const Bizz = {
             })
             return (found? true: false);
         }
+    },
+
+    async searchByProduct (productId : string) {
+        const userLocation = Dodi.location();
+        
+        const uri = '/api/bizz/search-by-product';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({productId, location: userLocation})
+        });
+        const res = await resRaw.json();
+        return res;
     }
 }
 
