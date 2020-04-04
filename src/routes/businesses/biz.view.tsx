@@ -1,4 +1,5 @@
 import React from "react";
+import * as _ from 'lodash';
 import { withAuth } from "../../utils/withAuth";
 import Bizz from "../../lib/business/client";
 import DefaultLayout from "../../components/layout/default";
@@ -21,7 +22,7 @@ class BizView extends React.Component<any, any> {
             this.setState({error});
         } else {
             this.setState ({biz});
-        }
+        }    
     }
 
     async onDoneTagsEdit (e : any) {
@@ -65,21 +66,59 @@ class BizView extends React.Component<any, any> {
     async onUpdateInventoryItem (inventoryItem : any) {
         const {error} = await Bizz.updateInventoryItem(inventoryItem, this.state.biz._id, this.props.user.id)
         if (error) this.setState({error});
+        else {
+            const { biz } = this.state;
+            if (inventoryItem._id) {
+                biz.inventory.forEach ((ii) => {
+                    if (ii._id === inventoryItem._id) {
+                        ii = inventoryItem;
+                    }
+                })    
+            } else {
+                biz.inventory.push(inventoryItem);
+            }
+            this.setState({biz});
+        }
     }
 
     async onDeleteWishlistItem (item : IInventoryItem) {
         const { error } = await Bizz.deleteWishlistItem(item._id, this.state.biz._id, this.props.user.id);
         if (error) this.setState({error});
+        else {
+            const { biz } = this.state;
+            _.remove(biz.inventory, (ii : IInventoryItem) => {
+                return (ii._id === item._id);
+            })
+            this.setState({biz});
+        }
     }
 
     async onUpvoteWishlistItem (item : IInventoryItem) {
         const { error } = await Bizz.upVoteWishlistItem(item._id, this.state.biz._id);
         if (error) this.setState({error});
+        else {
+            const { biz } = this.state;
+            biz.inventory.forEach ((ii) => {
+                if (ii._id === item._id) {
+                    ii.votes++;
+                }
+            })
+            this.setState({biz});
+        }
     }
 
     async onDownvoteWishlistItem (item : IInventoryItem) {
         const { error } = await Bizz.downVoteWishlistItem(item._id, this.state.biz._id);
         if (error) this.setState({error});
+        else {
+            const { biz } = this.state;
+            biz.inventory.forEach ((ii) => {
+                if (ii._id === item._id) {
+                    ii.votes--;
+                }
+            })
+            this.setState({biz});
+        }
     }
 
     render () {
@@ -98,7 +137,7 @@ class BizView extends React.Component<any, any> {
         return (
             <DefaultLayout>
                 <div className='biz view'>
-                    <div className='contact-info'>
+                    <div className='biz-name'>
                         <div>
                             <h1>
                                 {biz.name} 
@@ -112,12 +151,6 @@ class BizView extends React.Component<any, any> {
                                     <Badge variant='primary'>Claimed</Badge> : null
                                 }
                             </h1>
-                            <span className='info'><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></span>
-                            {
-                                biz.phone?
-                                <span><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></span>
-                                : null
-                            }
                         </div>
                         {
                         showEditButton?
@@ -126,6 +159,14 @@ class BizView extends React.Component<any, any> {
                         </div>
                         : null
                     }
+                    </div>
+                    <div className='contact-info'>
+                        <span className='info'><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></span>
+                        {
+                            biz.phone?
+                            <span><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></span>
+                            : null
+                        }
                     </div>
                     <div className='biz-tags'>
                         <span className="heading">Tags</span>
@@ -157,17 +198,12 @@ class BizView extends React.Component<any, any> {
                                 : null
                             }
                         </div>
-                        {
-                            this.state.isEditInventory?
-                            <InventoryEdit items={biz.inventory} 
-                                onUpdate={this.onUpdateInventoryItem.bind(this)}
-                                onDelete={this.onDeleteWishlistItem.bind(this)} />
-                            :
-                            <InventoryView items={biz.inventory} 
-                                onUpvote={this.onUpvoteWishlistItem.bind(this)}
-                                onDownvote={this.onDownvoteWishlistItem.bind(this)}
+                        <InventoryEdit items={biz.inventory} 
+                            onUpdate={this.onUpdateInventoryItem.bind(this)}
+                            onDelete={this.onDeleteWishlistItem.bind(this)} 
+                            onUpvote={this.onUpvoteWishlistItem.bind(this)}
+                            onDownvote={this.onDownvoteWishlistItem.bind(this)}
                             />
-                        }
                     </div>
                 </div>
             </DefaultLayout>

@@ -13,7 +13,7 @@ export class AddressView extends Component<any, any> {
         if (address.street1) parts.push(titleCase(address.street1));
         if (address.street2) parts.push(titleCase(address.street2));
         if (address.city) parts.push(titleCase(address.city));
-        if (address.city) parts.push(address.state.toUpperCase());
+        if (address.state) parts.push(address.state.toUpperCase());
 
         const formattedAddress = parts.join(', ');
 
@@ -89,7 +89,7 @@ export class AddressEdit extends Component<any, any> {
             <div className='address edit'>
                 <InputGroup>
                     <InputGroup.Prepend>
-                        <InputGroup.Text><i className='fas fa-map-marker-alt' /></InputGroup.Text>
+                        <InputGroup.Text><i className='fa fa-map-marker-alt' /></InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl 
                         placeholder='Street'

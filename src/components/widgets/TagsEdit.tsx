@@ -23,7 +23,7 @@ export class TagsView extends Component<any, any> {
     render () {
         const {tags} = this.props;
         if (!tags || tags.length === 0) {
-            return <div className='tags'>(none)</div>
+            return null;
         }
 
         return (<div className="tags">

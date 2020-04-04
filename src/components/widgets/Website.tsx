@@ -52,7 +52,7 @@ export class WebsiteEdit extends Component<any, any> {
         return (
             <InputGroup>
                 <InputGroup.Prepend>
-                    <InputGroup.Text><i className='fas fa-globe' /></InputGroup.Text>
+                    <InputGroup.Text><i className='fa fa-globe' /></InputGroup.Text>
                 </InputGroup.Prepend>
 
                 <FormControl placeholder='Website'

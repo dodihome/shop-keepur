@@ -1,5 +1,5 @@
 .biz {
-    padding-top: 40px;
+    padding-top: 20px;
     h1 {
         font-size: 1.5em;
     }
@@ -67,22 +67,58 @@
             padding-bottom: 10px;
         }
 
-        .card-header {
-            .title {
-                font-size: 1.1em;
-                font-weight: 700;
+        .biz-card {
+            max-width: 500px;
+            .meta {
+                font-size: 0.8em;
+                margin-bottom: 1em;
+            }    
+
+            .card-header {
+                .title {
+                    font-size: 1.1em;
+                    font-weight: 700;
+                }
+    
+                .badge {
+                    margin-left: 10px;
+                }
+    
+                button {
+                    display: inline-block;
+                    margin-left: 10px;
+                    font-size: small;
+                }
             }
 
-            .badge {
-                margin-left: 10px;
-            }
+            .card-body {
+                .inventory {
+                    padding-top: 20px;
 
-            button {
-                display: inline-block;
-                margin-left: 10px;
-                font-size: small;
+                    .in-stock {
+                        background-color: #e0f0e0;
+                        color: #337033;
+                    }
+
+                    .out-of-stock {
+                        background-color: #eee;
+                        color: #703333;
+                    }
+                    
+                    .heading {
+                        display: block;
+                        font-weight: 600;
+                    }
+
+                    .items {
+                        display: block;
+                    }
+
+                }
+
             }
-        }        
+    
+        }
     }
 
     &.view {
@@ -90,9 +126,14 @@
             display: block;
         }
 
-        .contact-info {
+        .biz-name {
             display: flex;
             justify-content: space-between;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+            
         }
 
         .biz-tags {
@@ -129,36 +170,41 @@
 
             .inventory {
                 .card {
+                    min-width: 250px;
+        
                     &.in-stock {
                         background-color: #e0f0e0;
                         color: #337033;
                     }
-
+        
                     &.out-of-stock {
                         background-color: #eee;
                         color: #703333;
                     }    
-
+        
                     .card-header {
                         font-weight: 700;
-
+        
                         i {
                             display: inline-block;
                             margin-left: 10px;
                         }
                     }
-
+        
                 }
-    
+        
                 .items {
                     .item {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-
+        
                         .when {
                             font-size: smaller;
                             font-style: italic;
+                        }
+
+                        .votes {
                         }
                     }
                 }

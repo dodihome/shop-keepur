@@ -4,6 +4,9 @@ import { CardGroup, Card, Button, Badge, CardDeck } from 'react-bootstrap';
 import { PhoneView } from '../../components/widgets/Phone';
 import { Link } from 'react-router-dom';
 import { AddressView } from '../widgets/Address';
+import { fromNow } from '../../utils/formatter';
+import { TagsView } from '../widgets/TagsEdit';
+import { InventoryView } from '../widgets/Inventory';
 
 class BizCard extends React.Component<any, any> {
 
@@ -19,7 +22,7 @@ class BizCard extends React.Component<any, any> {
 
         const viewLink = '/bizz/' + biz.id;
 
-        return <Card key={biz.id}>
+        return <Card key={biz.id} className='biz-card'>
             <Card.Header>
                 <span className='title'><Link to={viewLink}>{biz.name}</Link></span> 
                 {
@@ -31,16 +34,27 @@ class BizCard extends React.Component<any, any> {
                     biz.isClaimed ?
                     <Badge variant='primary'>Claimed</Badge> : null
                 }
+                <div className='meta'>
+                    Last Update: <strong>{fromNow(biz.meta.lastModifiedAt)}</strong>, by <strong>{biz.meta.lastModifiedBy.displayName}</strong>
+                </div>
+
+                <Card.Text>
+                    <div><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></div>
+                {
+                    biz.phone?
+                    <div><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></div>
+                    : null
+                }
+                </Card.Text>
+                <TagsView tags={biz.tags} />
+
             </Card.Header>
 
             <Card.Body>
-                <Card.Text><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></Card.Text>
-                {
-                    biz.phone?
-                    <Card.Text><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></Card.Text>
-                    : null
-                }
+                <InventoryView items={biz.inventory} basic={true} />
+
             </Card.Body>
+
         </Card>
     }
 }

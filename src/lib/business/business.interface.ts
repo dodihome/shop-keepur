@@ -64,7 +64,9 @@ export interface IBizLite {
     name: string,
     address: IAddress,
     phone: IPhoneNumber,
-    isClaimed: boolean
+    isClaimed: boolean,
+    tags: string[],
+    inventory: IInventoryItem[]
 }
 
 export interface IBizConsumerView {

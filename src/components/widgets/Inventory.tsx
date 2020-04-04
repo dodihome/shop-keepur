@@ -1,7 +1,17 @@
 import React from "react";
-import { Form, InputGroup, Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap";
+import { Form, InputGroup, Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert } from "react-bootstrap";
 import { fromNow } from "../../utils/formatter";
 import { InventoryStatus, IInventoryItem } from "../../lib/business/business.interface";
+
+const BasicItems = (props : any) => {
+    const { items } = props;
+
+    const names = items.map((ii)=> {
+        return ii.product.name;
+    });
+
+    return (<span className='items'>{names.join(', ')}</span>)
+}
 
 export class InventoryView extends React.Component<any, any> {
 
@@ -15,22 +25,23 @@ export class InventoryView extends React.Component<any, any> {
         this.props.onDownvote(item);        
     }
 
-    render () {
-        const { items } = this.props;
-        console.log({items});
 
-        const inStock = [];
-        const outOfStock = [];
-        const unknown = [];
-        items.forEach((item)=> {
-            if (item.status === InventoryStatus.IN_STOCK) 
-                inStock.push(item);
-            else if (item.status === InventoryStatus.OUT_OF_STOCK)
-                outOfStock.push(item);
-            else 
-                unknown.push(item);
-        })
+    renderBasicView (inStock : any[], outOfStock : any[]) {
+        return (
+            <div className='inventory'>
+                <Alert variant='success' className='in-stock'>
+                    <span className='heading'>In Stock: </span>           
+                    <BasicItems items={inStock} />
+                </Alert>
+                <Alert variant='secondary' className='out-of-stock'>
+                    <span className='heading'>Out Of Stock: </span>           
+                    <BasicItems items={outOfStock} />         
+                </Alert>
+            </div>
+        )
+    }
 
+    renderStandardView (inStock : any [], outOfStock : any [], unknown: any[]) {
         return (
             <CardDeck className='inventory'>
                 <Card className='in-stock'>
@@ -85,6 +96,30 @@ export class InventoryView extends React.Component<any, any> {
                 </Card>
             </CardDeck>
         )
+    }
+
+    render () {
+        const { items, basic } = this.props;
+        console.log({items});
+
+        const inStock = [];
+        const outOfStock = [];
+        const unknown = [];
+        items.forEach((item)=> {
+            if (item.status === InventoryStatus.IN_STOCK) 
+                inStock.push(item);
+            else if (item.status === InventoryStatus.OUT_OF_STOCK)
+                outOfStock.push(item);
+            else 
+                unknown.push(item);
+        })
+
+        if (basic) {
+            return this.renderBasicView (inStock, outOfStock);
+        } else {
+            return this.renderStandardView(inStock, outOfStock, unknown);
+        }
+
     }
 }
 
@@ -183,6 +218,16 @@ export class InventoryEdit extends React.Component<any, any> {
         this.props.onDelete(item);
     }
 
+    onUpvote (item : IInventoryItem, e : any) {
+        e.preventDefault();
+        this.props.onUpvote(item);
+    }
+
+    onDownvote (item: IInventoryItem, e : any) {
+        e.preventDefault();
+        this.props.onDownvote(item);        
+    }
+
     render () {
         const { items } = this.props;
 
@@ -249,7 +294,11 @@ export class InventoryEdit extends React.Component<any, any> {
                                 return <ListGroup.Item key={idx} action className='item'>
                                     <div>
                                         <div className='name'>{item.product.name}</div>
-                                        <div className='when'>{fromNow(item.timestamp)}</div>
+                                        <ButtonGroup className='votes'>
+                                            <Button variant='outline-primary' onClick={this.onUpvote.bind(this, item)}><i className='fa fa-thumbs-up' /></Button>
+                                            <Button variant='outline-primary' disabled>{item.votes? item.votes : 0}</Button>
+                                            <Button variant='outline-primary' onClick={this.onDownvote.bind(this, item)}><i className='fa fa-thumbs-down' /></Button>
+                                        </ButtonGroup>
                                     </div>
                                     <DropdownButton id='updateUnknownItem' title='Mark As' variant='outline-secondary'>
                                         <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.IN_STOCK)}>In Stock</Dropdown.Item>
