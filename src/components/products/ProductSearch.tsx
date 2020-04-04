@@ -10,12 +10,13 @@ export class ProductSearch extends React.Component<any, any> {
         allowNew: true,
         isLoading: false,
         multiple: false,
-        options: []
+        options: [],
+        isSearching: false
     } as any;
 
     onChange ( selected: any) {
         console.log(selected);
-        this.setState({selected});
+        this.setState({selected, isSearching: true});
         setTimeout(this.onSubmit.bind(this), 300);
     }
 
@@ -30,6 +31,8 @@ export class ProductSearch extends React.Component<any, any> {
             } else {
                 this.props.onSearch(this.state.selected[0].id);
             }
+        } else {
+            this.setState({isSearching: false});
         }
     }
 
@@ -68,7 +71,7 @@ export class ProductSearch extends React.Component<any, any> {
                         placeholder='products, e.g. toilet paper...'
                         selected={this.state.selected} />
                     <InputGroup.Append>
-                        <Button variant='secondary' type='submit'>{buttonLabel}</Button>
+                        <Button variant='secondary' type='submit' disabled={this.state.isSearching}>{buttonLabel}</Button>
                     </InputGroup.Append>
                 </InputGroup>
             </Form>

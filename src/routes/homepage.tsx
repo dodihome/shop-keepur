@@ -37,6 +37,9 @@ class HomePage extends React.Component <any, any> {
 
     async onSearch (productId: string) {
         const url = '/search?p=' + productId;
+        this.setState({
+            isLoading: true
+        })
         this.props.history.push(url);
     }
 
@@ -51,15 +54,19 @@ class HomePage extends React.Component <any, any> {
             <DefaultLayout homepage={true}>
                 <div className='home'>
                 {
-                    userLocation? null : <SetUserLocation />
+                    userLocation? 
+                    <React.Fragment>
+                        <div className='products'>
+                            <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                            <TagCloud products={this.state.products} />
+                        </div>
+                        <div className='search-result biz list'>
+                            <BizzList bizz={this.state.bizz} user={user} history={history} />
+                        </div>                        
+                    </React.Fragment>
+                    : 
+                    <SetUserLocation />
                 }
-                    <div className='products'>
-                        <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
-                        <TagCloud products={this.state.products} />
-                    </div>
-                    <div className='search-result biz list'>
-                        <BizzList bizz={this.state.bizz} user={user} history={history} />
-                    </div>
                 </div>
             </DefaultLayout>
         )

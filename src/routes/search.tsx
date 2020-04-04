@@ -38,7 +38,7 @@ class SearchPage extends React.Component <any, any> {
     render () {
         const { user, userLocation, history } = this.props;
         return (
-            <DefaultLayout homepage={true}>
+            <DefaultLayout>
                 <div className='home'>
                     <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
                     <div className='search-result biz list'>

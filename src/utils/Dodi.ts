@@ -6,6 +6,8 @@ export default class Dodi {
     private static _dodi = new Dodi();
 
     private user : IUserProfile = null as any;
+    private location: string = null as any;
+
     private constructor () {
     }
 
@@ -25,6 +27,11 @@ export default class Dodi {
         this.user = user;
     }
 
+    setLocation (userLocation: string) {
+        Cookies.set('location', userLocation, { expires: 7, path: '/'});
+        this.location = userLocation;
+    }
+
     static isSysAdmin (user? : IUserProfile) : boolean {
         if (!user) {
             user = Dodi.user();
@@ -38,7 +45,11 @@ export default class Dodi {
     }
 
     static location () : string {
-        const location = Cookies.get('location');    
-        return location;        
+        let location = this._dodi.location;
+        if (!location) {
+            location = Cookies.get('location');    
+            this._dodi.location = location;
+        }
+        return location;
     }
 }

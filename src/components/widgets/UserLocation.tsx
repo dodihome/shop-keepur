@@ -22,7 +22,7 @@ export class UserLocation extends React.Component < any, any> {
 
     setLocation ( e: any) {
         e.preventDefault();
-        Cookies.set('location', this.state.location, { expires: 7, path: '/'});
+        Dodi.getInstance().setLocation(this.state.location);
     }
 
     render () {
@@ -32,7 +32,7 @@ export class UserLocation extends React.Component < any, any> {
                     <InputGroup.Prepend>
                         <InputGroup.Text>Location</InputGroup.Text>
                     </InputGroup.Prepend>
-                    <FormControl placeholder='San Jose, CA' value={this.state.location}
+                    <FormControl placeholder='City, State' value={this.state.location}
                         name='location'
                         onChange={this.onChange.bind(this)}
                     />
