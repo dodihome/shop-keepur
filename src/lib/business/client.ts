@@ -109,7 +109,8 @@ const Bizz = {
     },
 
     list : async () => {
-        const uri = '/api/bizz/list';
+        const location = Dodi.location();
+        const uri = '/api/bizz/list?location=' + location;
         const resRaw = await fetch (uri);
         const res = await resRaw.json();
         return res;
