@@ -136,7 +136,7 @@ export class InventoryEdit extends React.Component<any, any> {
         this.setState(newState);
     }
 
-    onAddUnknown (product: any) {
+    _addToList (product: any, status: InventoryStatus) {
         console.log({product});
         const {items} = this.props;
 
@@ -153,10 +153,17 @@ export class InventoryEdit extends React.Component<any, any> {
                 found.product.id = product.id;
             }
         }
-        found.status = InventoryStatus.UNKNOWN;
+        found.status = status;
         this.props.onUpdate(found);    
     }
 
+    onAddInStock (product: any) {
+        this._addToList(product, InventoryStatus.IN_STOCK);
+    }
+
+    onAddOutOfStock (product: any) {
+        this._addToList(product, InventoryStatus.OUT_OF_STOCK);
+    }
     onRemove ( item: any, e: any) {
         e.preventDefault();
         if (item.status === InventoryStatus.UNKNOWN) {
@@ -216,7 +223,16 @@ export class InventoryEdit extends React.Component<any, any> {
         return (
             <CardDeck className='inventory'>
                 <Card className='in-stock'>
-                    <Card.Header>In Stock <i className='fa fa-check-circle' /></Card.Header>
+                    <Card.Header>In Stock <i className='fa fa-check-circle' />
+                        {user?
+                        <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
+                            isSearching={false}
+                            onAdd={this.onAddInStock.bind(this)}
+                            onSearch={this.onAddInStock.bind(this)} />
+                            : null
+                        }
+
+                    </Card.Header>
                     <Card.Body>
                         <ListGroup className='items'>
                         {
@@ -228,7 +244,10 @@ export class InventoryEdit extends React.Component<any, any> {
                                     </div>
                                     {
                                         user?
-                                        <Button variant='outline-secondary' onClick={this.onRemove.bind(this, item)}>Ran Out</Button>
+                                        <ButtonGroup>
+                                            <Button variant='outline-primary' onClick={this.onRemove.bind(this, item)}>Ran Out</Button>
+                                            <Button variant='outline-danger' onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Button>
+                                        </ButtonGroup>
                                         : null
                                     }
                                 </ListGroup.Item>
@@ -238,7 +257,17 @@ export class InventoryEdit extends React.Component<any, any> {
                     </Card.Body>
                 </Card>
                 <Card className='out-of-stock'>
-                    <Card.Header>Out Of Stock <i className='fa fa-minus-circle' /></Card.Header>
+                    <Card.Header>
+                        Out Of Stock <i className='fa fa-minus-circle' />
+                        {user?
+                        <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
+                            isSearching={false}
+                            onAdd={this.onAddOutOfStock.bind(this)}
+                            onSearch={this.onAddOutOfStock.bind(this)} />
+                            : null
+                        }
+
+                    </Card.Header>
                     <Card.Body>
                         <ListGroup className='items'>
                         {
@@ -250,46 +279,10 @@ export class InventoryEdit extends React.Component<any, any> {
                                     </div>
                                     {
                                         user?
-                                        <Button variant='outline-secondary' onClick={this.onRemove.bind(this, item)}>Re-Stocked</Button>
-                                        : null
-                                    }
-                                </ListGroup.Item>
-                            })
-                        }
-                        </ListGroup>
-                    </Card.Body>
-                </Card>
-                <Card className='unknown'>
-                    <Card.Header>Watch List <i className='fa fa-question-circle' />
-                    {user?
-                        <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
-                            isSearching={false}
-                            onAdd={this.onAddUnknown.bind(this)}
-                            onSearch={this.onAddUnknown.bind(this)} />
-                        : null
-                    }
-
-                    </Card.Header>
-                    <Card.Body>
-                        <ListGroup className='items'>
-                        {
-                            unknown.map((item, idx)=> {
-                                return <ListGroup.Item key={idx} action className='item'>
-                                    <div>
-                                        <div className='name'>{titleCase(item.product.name)}</div>
-                                        <ButtonGroup className='votes'>
-                                            <Button variant='outline-primary' disabled>{item.votes? item.votes : 0}</Button>
-                                            <Button variant='outline-primary' onClick={this.onUpvote.bind(this, item)}><i className='fa fa-thumbs-up' /></Button>
+                                        <ButtonGroup>
+                                            <Button variant='outline-primary' onClick={this.onRemove.bind(this, item)}>Re-Stocked</Button>
+                                            <Button variant='outline-danger' onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Button>
                                         </ButtonGroup>
-                                    </div>
-                                    {
-                                        user?
-                                        <DropdownButton id='updateUnknownItem' title='Mark As' variant='outline-secondary'>
-                                            <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.IN_STOCK)}>In Stock</Dropdown.Item>
-                                            <Dropdown.Item onClick={this.onMarkItem.bind(this, item, InventoryStatus.OUT_OF_STOCK)}>Out Of Stock</Dropdown.Item>
-                                            <Dropdown.Divider />
-                                            <Dropdown.Item onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Dropdown.Item>
-                                        </DropdownButton>
                                         : null
                                     }
                                 </ListGroup.Item>

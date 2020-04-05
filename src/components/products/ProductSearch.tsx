@@ -14,6 +14,17 @@ export class ProductSearch extends React.Component<any, any> {
         isSearching: false
     } as any;
 
+    ref : any = React.createRef();
+
+    _clearState () {
+        this.setState ({
+            selected: null,
+            options: []
+        })
+        const instance = this.ref.current.getInstance();
+        instance.clear();
+    }
+
     componentDidUpdate (oldProps : any, oldState: any) {
         if (oldState.isSearching !== this.props.isSearching) {
             this.setState({
@@ -39,6 +50,7 @@ export class ProductSearch extends React.Component<any, any> {
             } else {
                 this.props.onSearch(this.state.selected[0]);
             }
+            this._clearState()
         } else {
             this.setState({isSearching: false});
         }
@@ -85,7 +97,9 @@ export class ProductSearch extends React.Component<any, any> {
                         minLength={3}
                         onSearch={this.onSearch.bind(this)}
                         placeholder={placeholder}
-                        selected={this.state.selected} />
+                        selected={this.state.selected} 
+                        ref={this.ref}
+                        />
                     <InputGroup.Append>
                         <Button variant='secondary' type='submit' disabled={this.state.isSearching}>{buttonLabel}</Button>
                     </InputGroup.Append>
