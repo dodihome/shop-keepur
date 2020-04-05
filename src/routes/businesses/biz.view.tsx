@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import TagsEdit, { TagsView } from "../../components/widgets/TagsEdit";
 import { InventoryEdit } from "../../components/widgets/Inventory";
 import { IInventoryItem } from "../../lib/business/business.interface";
-import { fromNow } from "../../utils/formatter";
 import { Message_LoginToEdtiInventory } from "../../components/widgets";
 
 class BizView extends React.Component<any, any> {
@@ -155,7 +154,7 @@ class BizView extends React.Component<any, any> {
                         }
                     </div>
                     
-                    <Message_LoginToEdtiInventory />
+                    {messageBlock}
 
                     <div className='biz-inventory'>
                         <div className='heading'>

@@ -1,6 +1,20 @@
 /* Move down content because we have a fixed navbar that is 3.5rem tall */
+
 body {
   padding-top: 5rem;
+}
+
+div#root {
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.main.content {
+  flex: 1 0 auto;
+  padding-top: 5em;
 }
 
 .phoneNumber label {

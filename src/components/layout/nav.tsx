@@ -16,7 +16,7 @@ class Navigation extends React.Component<any, any>  {
             <Nav>
                 <Nav.Link href="/products">Products</Nav.Link>
                 <Nav.Link href="/bizz">Local Stores</Nav.Link>
-                <NavDropdown title={user.displayName} id="basic-nav-dropdown">
+                <NavDropdown title={user.displayName} id="basic-nav-dropdown" alignRight>  
                     <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
                     {
