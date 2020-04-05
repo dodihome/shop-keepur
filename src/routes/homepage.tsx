@@ -9,14 +9,9 @@ import { withLocation } from '../utils/withLocation';
 import { ProductSearch } from '../components/products/ProductSearch';
 
 import Products from '../lib/product/client';
-import { BizzList } from '../components/bizz/BizzList';
 import { withAuth } from '../utils/withAuth';
 import { TagCloud } from '../components/products/TagCloud';
-import Dodi from '../utils/Dodi';
-import { NameValuePairView } from '../components/widgets/NameValuePair';
-import { Link } from 'react-router-dom';
 import { UserLocationView } from '../components/widgets';
-import { UniqueLocations } from '../components/bizz/UniqueLocations';
 
 export const SetUserLocation = (props: any)=>{
     return (
@@ -55,9 +50,7 @@ class HomePage extends React.Component <any, any> {
     }
 
     render () {
-        const { user, history } = this.props;
-        const userLocation = Dodi.location();
-        const headline = <span>Find the essentials while sheltering in place...</span>
+        const headline = <span>Find toilet paper and more...</span>
         return (
             <DefaultLayout 
                 headline={headline}>
@@ -65,7 +58,6 @@ class HomePage extends React.Component <any, any> {
                     <div className='products'>
                         <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
                         <UserLocationView />
-
                         <TagCloud products={this.state.products} />
                     </div>
                 </div>

@@ -137,6 +137,10 @@
         .biz-name {
             display: flex;
             justify-content: space-between;
+
+            .badge {
+                margin-left: 10px;
+            }
         }
 
         .contact-info {

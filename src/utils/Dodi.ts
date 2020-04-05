@@ -2,26 +2,6 @@ import * as _ from 'lodash';
 import { IUserProfile } from "../lib/accounts/accounts.interface";
 import Cookies from 'js-cookie';
 
-function setTSCookie (cookieName: string) {
-    var inTenMinutes = new Date(new Date().getTime() + 10 * 60 * 1000);
-    const now = new Date();
-    Cookies.set(cookieName, now.getTime().toString(), { expires: inTenMinutes, path: '/'});
-}
-
-function checkTS (cookieName: string) {
-    const lastTsCookie = Cookies.get(cookieName);
-    if (lastTsCookie) {
-        const lastTS = parseInt(lastTsCookie);
-        const now = new Date();
-        if ((now.getTime() - lastTS) < 1000) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
 
 export default class Dodi {
     private static _dodi = new Dodi();
@@ -53,18 +33,27 @@ export default class Dodi {
         this.location = userLocation;
     }
 
-    setLoginPromptTS () {
-        setTSCookie('promptedLogin');
+    static setTimestamp (cookieName: string, expiresInMins: number) {
+        var inMinutes = new Date(new Date().getTime() + expiresInMins * 60 * 1000);
+        const now = new Date();
+        Cookies.set(cookieName, now.getTime().toString(), { expires: inMinutes, path: '/'});
     }
 
-    setAddStorePromptTS () {
-        setTSCookie('promptedAddStore');
+    static checkTimestamp (cookieName: string) {
+        const lastTsCookie = Cookies.get(cookieName);
+        if (lastTsCookie) {
+            const lastTS = parseInt(lastTsCookie);
+            const now = new Date();
+            if ((now.getTime() - lastTS) < 1000) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
-
-    setClaimBizPromptTS () {
-        setTSCookie('promptedClaimBiz');
-    }
-
+    
     static isSysAdmin (user? : IUserProfile) : boolean {
         if (!user) {
             user = Dodi.user();
@@ -84,17 +73,5 @@ export default class Dodi {
             this._dodi.location = location;
         }
         return location;
-    }
-
-    static showLoginPromptAgain() : boolean {
-        return checkTS('promptedLogin');
-    }
-
-    static showAddStoreMsg () : boolean {
-        return checkTS('promptedAddStore');
-    }
-
-    static showClaimBizMsg () : boolean {
-        return checkTS ('promptedClaimBiz');
     }
 }

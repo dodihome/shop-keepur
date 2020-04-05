@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect';
 
 class Footer extends React.Component<any, any> {
     render () {
-        let className = 'footer mt-auto py-3 ' + (isMobile? 'mobile' : 'web');
+        let className = 'footer py-3 ' + (isMobile? 'mobile' : 'mt-auto web');
         return (
             <footer className={className}>
                 <div className="container">

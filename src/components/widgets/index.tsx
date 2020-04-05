@@ -20,11 +20,12 @@ export const UserLocationView = (props: any) => {
 }
 
 export const Message_LoginToAddStore = (props: any) => {
-    const showAgain = Dodi.showLoginPromptAgain();
-    if (!showAgain)
-        return null;
-        
-    Dodi.getInstance().setLoginPromptTS();
+    const cookieName = 'promptedLoginToAddStore';
+    const showAgain = Dodi.checkTimestamp(cookieName);
+    if (!showAgain) return null;
+
+    Dodi.setTimestamp(cookieName, 10);
+
     return (
         <Alert variant='info'>
             <p><strong>Login</strong> to add a store, and/or edit a store's product info.</p>
@@ -39,10 +40,11 @@ export const Message_LoginToAddStore = (props: any) => {
 }
 
 export const Message_AddStore = (props: any) => {
-    const showAgain = Dodi.showAddStoreMsg();
+    const cookieName = 'promptedAddStore';
+    const showAgain = Dodi.checkTimestamp(cookieName);
     if (!showAgain) return null;
 
-    Dodi.getInstance().setAddStorePromptTS();
+    Dodi.setTimestamp(cookieName, 10);
 
     return (
         <Alert variant='info'>
@@ -57,10 +59,11 @@ export const Message_AddStore = (props: any) => {
 }
 
 export const Message_LoginToEdtiInventory = (props: any) => {
-    const showAgain = Dodi.showLoginPromptAgain();
+    const cookieName = 'promptedLoginToEdit';
+    const showAgain = Dodi.checkTimestamp(cookieName);
     if (!showAgain) return null;
 
-    Dodi.getInstance().setLoginPromptTS();
+    Dodi.setTimestamp(cookieName, 10);
 
     return (
         <Alert variant='info'>
