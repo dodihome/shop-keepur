@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Dodi from '../../utils/Dodi';
 import { withLocation } from '../../utils/withLocation';
+import { ChangeLocationPopover } from '../../components/widgets';
 
 class ConsumerList extends React.Component<any, any> {
     state : any = {bizz: []} as any;
@@ -31,7 +32,7 @@ class ConsumerList extends React.Component<any, any> {
             <DefaultLayout>
                 <div className='biz list'>
                     <div className='heading'>
-                        <h1>{userLocation}</h1>
+                        <h1>{userLocation} <ChangeLocationPopover /></h1>
                         {user ?
                         <Link to='/bizz/new'><Button variant='outline-primary'>+ Add Store</Button></Link>
                         : null

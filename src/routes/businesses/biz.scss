@@ -2,6 +2,11 @@
     padding-top: 20px;
     h1 {
         font-size: 1.5em;
+
+        i.fa {
+            display: inline-block;
+            margin-left: 10px;
+        }
     }
 
     i.fas {
@@ -61,6 +66,8 @@
     }
 
     &.list {
+
+
         .heading {
             display: flex;
             justify-content: space-between;

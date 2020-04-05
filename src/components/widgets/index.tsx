@@ -2,14 +2,19 @@ import Dodi from "../../utils/Dodi";
 import React from "react";
 import { NameValuePairView } from "./NameValuePair";
 import { Link } from "react-router-dom";
-import { Button, Alert } from "react-bootstrap";
+import { Button, Alert, OverlayTrigger, Popover, PopoverContent, PopoverTitle } from "react-bootstrap";
+import { UniqueLocations } from "../bizz/UniqueLocations";
+import { UserLocation } from "./UserLocation";
+import { Divider } from "./Divider";
+
+import './index.scss';
 
 export const UserLocationView = (props: any) => {
     const userLocation = Dodi.location();
     return (
         <div className='user-location'>
             <NameValuePairView name='Location' value={userLocation} />
-            <Link to='/set-location'><Button variant='link'>(Change Location)</Button></Link>
+            <ChangeLocationPopover />
         </div>
     )
 }
@@ -67,5 +72,29 @@ export const Message_LoginToEdtiInventory = (props: any) => {
                 <Link to='/user/login'><Button variant='outline-primary'>Login</Button></Link>
             </div>
         </Alert>
+    )
+}
+
+function clickToChangeLocation (city : any) {
+    Dodi.getInstance().setLocation(city.location);
+    window.location.reload(false);
+}
+
+export const ChangeLocationPopover = (props)=> {
+    return (
+        <OverlayTrigger trigger='click' key='bottom' placement='bottom' overlay={
+            <Popover id='popover-locations'>
+                <PopoverTitle>
+                    <h3>Location</h3>
+                    <UserLocation hideLabel={true} isPopover={true} />
+                </PopoverTitle>
+                <PopoverContent>
+                    <Divider text='OR' />
+                    <UniqueLocations hideCount={true} onClick={clickToChangeLocation} />
+                </PopoverContent>
+            </Popover>
+        }>
+            <Button variant='link'>(Change Location) <i className='fa fa-caret-down' /></Button>
+        </OverlayTrigger>
     )
 }

@@ -36,19 +36,27 @@ export class UserLocation extends React.Component < any, any> {
         e.preventDefault();
         if (isValidCityState (this.state.location) ) {
             Dodi.getInstance().setLocation(this.state.location);
-            this.props.history.go(-1);    
+            if (this.props.isPopover) {
+                window.location.reload(false);
+            } else {
+                this.props.history.go(-1);    
+            }
         } else {
             this.setState({validationError: true})
         }
     }
 
     render () {
+        const { hideLabel } = this.props;
+
         return (
             <Form onSubmit={this.setLocation.bind(this)}>
                 <InputGroup>
+                    {hideLabel ? null :
                     <InputGroup.Prepend>
                         <InputGroup.Text>Location</InputGroup.Text>
                     </InputGroup.Prepend>
+                    }
                     <FormControl placeholder='City, State' value={this.state.location}
                         name='location'
                         onChange={this.onChange.bind(this)}

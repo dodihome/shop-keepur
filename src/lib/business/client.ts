@@ -116,6 +116,13 @@ const Bizz = {
         return res;
     },
 
+    getUniqueLocations : async () => {
+        const uri = '/api/bizz/unique-city-states';
+        const resRaw = await fetch (uri);
+        const res = await resRaw.json();
+        return res;
+    },
+
     consumerView: async (bizId: string) => {
         const uri = '/api/bizz/consumer-view?bizId=' + bizId;
         const resRaw = await fetch (uri);

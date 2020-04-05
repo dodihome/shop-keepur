@@ -1,0 +1,19 @@
+.browse-locations {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .by-state {
+        margin-right: 10px;
+
+        .heading-state {
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .btn-link {
+            padding-left: 0.2em;
+            padding-right: 0.2em;
+        }
+    }
+}

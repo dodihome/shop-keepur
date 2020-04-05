@@ -16,6 +16,7 @@ import Dodi from '../utils/Dodi';
 import { NameValuePairView } from '../components/widgets/NameValuePair';
 import { Link } from 'react-router-dom';
 import { UserLocationView } from '../components/widgets';
+import { UniqueLocations } from '../components/bizz/UniqueLocations';
 
 export const SetUserLocation = (props: any)=>{
     return (
@@ -61,22 +62,12 @@ class HomePage extends React.Component <any, any> {
             <DefaultLayout 
                 headline={headline}>
                 <div className='home'>
-                {
-                    userLocation? 
-                    <React.Fragment>
-                        <div className='products'>
-                            <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
-                            <UserLocationView />
+                    <div className='products'>
+                        <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                        <UserLocationView />
 
-                            <TagCloud products={this.state.products} />
-                        </div>
-                        <div className='search-result biz list'>
-                            <BizzList bizz={this.state.bizz} user={user} history={history} />
-                        </div>                        
-                    </React.Fragment>
-                    : 
-                    <SetUserLocation />
-                }
+                        <TagCloud products={this.state.products} />
+                    </div>
                 </div>
             </DefaultLayout>
         )
