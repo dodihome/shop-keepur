@@ -12,6 +12,8 @@ import { BizzList } from '../components/bizz/BizzList';
 import { Divider } from '../components/widgets/Divider';
 import Dodi from '../utils/Dodi';
 import { NameValuePairView } from '../components/widgets/NameValuePair';
+import { withLocation } from '../utils/withLocation';
+import { UserLocationView } from './homepage';
 
 class SearchPage extends React.Component <any, any> {
     state : any = { bizz : [] } as any;
@@ -39,6 +41,7 @@ class SearchPage extends React.Component <any, any> {
             <DefaultLayout>
                 <div className='home'>
                     <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                    <UserLocationView />
 
                     <div className='search-result biz list'>
                         <div className='result-count'>
@@ -59,4 +62,4 @@ class SearchPage extends React.Component <any, any> {
     }
 }
 
-export default SearchPage;
+export default withLocation(SearchPage);

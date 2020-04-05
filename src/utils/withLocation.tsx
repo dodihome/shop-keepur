@@ -5,18 +5,15 @@ export function withLocation(WrappedComponent: any) {
     return class extends React.Component<any, any> {
         state : any = {} as any;
 
-        fetchLocation () {
-            const userLocation = Dodi.location();
-            this.setState({userLocation});
-        }
-
         componentDidMount() {
-            this.fetchLocation();
-            setInterval(this.fetchLocation.bind(this), 1000);
+            const userLocation = Dodi.location();
+            if (!userLocation) {
+                this.props.history.push('/set-location');
+            }
         }
 
         render () {
-            return <WrappedComponent userLocation={this.state.userLocation} {...this.props} />;
+            return <WrappedComponent {...this.props} />;
         }
     }
 }

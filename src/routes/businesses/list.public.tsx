@@ -5,6 +5,8 @@ import { withAuth } from '../../utils/withAuth';
 import { BizzList } from '../../components/bizz/BizzList';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import Dodi from '../../utils/Dodi';
+import { withLocation } from '../../utils/withLocation';
 
 class ConsumerList extends React.Component<any, any> {
     state : any = {bizz: []} as any;
@@ -24,11 +26,12 @@ class ConsumerList extends React.Component<any, any> {
 
     render () {
         const { user, history } = this.props;
+        const userLocation = Dodi.location();
         return (
             <DefaultLayout>
                 <div className='biz list'>
                     <div className='heading'>
-                        <h1>Stores</h1>
+                        <h1>{userLocation}</h1>
                         {user ?
                         <Link to='/bizz/new'><Button variant='outline-primary'>+ Add Store</Button></Link>
                         : null
@@ -42,4 +45,4 @@ class ConsumerList extends React.Component<any, any> {
     }
 }
 
-export default withAuth(ConsumerList);
+export default withLocation(withAuth(ConsumerList));

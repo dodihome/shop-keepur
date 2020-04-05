@@ -7,9 +7,10 @@ import React from "react";
 import './product.scss';
 import { TagCloud } from '../../components/products/TagCloud';
 import { ProductSearch } from '../../components/products/ProductSearch';
-import Bizz from '../../lib/business/client';
+import { withLocation } from '../../utils/withLocation';
+import { UserLocationView } from '../homepage';
 
-export class ProductsPage extends React.Component<any, any> {
+class ProductsPage extends React.Component<any, any> {
     state : any = {} as any;
 
     async componentDidMount () {
@@ -35,6 +36,7 @@ export class ProductsPage extends React.Component<any, any> {
                     <h1>Products</h1>
                     
                     <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                    <UserLocationView />
                     {
                         products?                     
                         <TagCloud products={products} />
@@ -45,3 +47,5 @@ export class ProductsPage extends React.Component<any, any> {
         )
     }
 }
+
+export default withLocation(ProductsPage);

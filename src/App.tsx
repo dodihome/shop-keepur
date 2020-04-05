@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Blank from './components/Blank';
-import HomePage from './routes/homepage';
+import HomePage, { SetUserLocation } from './routes/homepage';
 import { LoginPage } from './routes/accounts/login';
 import { SignUpPage } from './routes/accounts/sign-up';
 import { ForgotPasswordPage } from './routes/accounts/forgot-password';
@@ -16,7 +16,7 @@ import BizClaim from './routes/businesses/biz.claim';
 import BizzList from './routes/businesses/list.public';
 
 import BizzAdmin from './routes/admin/bizz';
-import { ProductsPage } from './routes/products/list';
+import ProductsPage from './routes/products/list';
 import SearchPage from './routes/search';
 
 class App extends React.Component {
@@ -24,6 +24,7 @@ class App extends React.Component {
     return (
       <Router>
         <Route exact path='/' component={HomePage} />
+        <Route exact path='/set-location' component={SetUserLocation} />
         <Route exact path='/user/login' component={LoginPage} />
         <Route exact path='/user/logout' component={LogoutPage} />
         <Route exact path='/user/sign-up' component={SignUpPage} />

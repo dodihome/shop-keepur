@@ -1,5 +1,8 @@
 .home {
     padding-top: 20px;
+    h1 {
+        font-size: 1.5em;
+    }
 
     .set-location {
         max-width: 500px;
@@ -31,5 +34,24 @@
             margin: auto;
             text-align: center;
         }
+    }
+}
+
+.user-location {
+    margin-top: 10px;
+    margin-left: 2px;
+
+    vertical-align: baseline;
+
+    .name-value-pair {
+        display: inline-block;
+
+        .name {
+            font-weight: 600;
+        }
+    }
+
+    .btn-link {
+        font-size: smaller;
     }
 }

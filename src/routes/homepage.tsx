@@ -4,7 +4,7 @@ import DefaultLayout from '../components/layout/default';
 import { UserLocation } from '../components/widgets/UserLocation';
 
 import './homepage.scss';
-import { Alert } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 import { withLocation } from '../utils/withLocation';
 import { ProductSearch } from '../components/products/ProductSearch';
 
@@ -13,17 +13,33 @@ import { BizzList } from '../components/bizz/BizzList';
 import { withAuth } from '../utils/withAuth';
 import { TagCloud } from '../components/products/TagCloud';
 import Dodi from '../utils/Dodi';
+import { NameValuePairView } from '../components/widgets/NameValuePair';
+import { Link } from 'react-router-dom';
 
-const SetUserLocation = (props: any)=>{
+export const SetUserLocation = (props: any)=>{
     return (
-        <div className='set-location'>
-            <strong>Please set your search location:</strong>
-            <UserLocation />
-            <Alert variant='info'>
-                <p><i><strong>Why?</strong></i> We are looking for products in <strong>local stores</strong>.</p>
-                <p><i><strong>Why isn't this automatic?</strong></i> Because it is very annoying to have your browser popup a warning asking 'this site is trying access your location data, is it OK?'</p>
-                <p><i><strong>Where is the location information stored?</strong></i> It is set as a cookie in your browser.  It is <strong>NOT stored in our database</strong>.</p>
-            </Alert>
+        <DefaultLayout>
+            <div className='home'>
+                <div className='set-location'>
+                    <strong>Please set your search location:</strong>
+                    <UserLocation history={props.history} />
+                    <Alert variant='info'>
+                        <p><i><strong>Why?</strong></i> We are looking for products in <strong>local stores</strong>.</p>
+                        <p><i><strong>Why isn't this automatic?</strong></i> Because it is very annoying to have your browser popup a warning asking 'this site is trying access your location data, is it OK?'</p>
+                        <p><i><strong>Where is the location information stored?</strong></i> It is set as a cookie in your browser.  It is <strong>NOT stored in our database</strong>.</p>
+                    </Alert>
+                </div>
+            </div>
+        </DefaultLayout>
+    )
+}
+
+export const UserLocationView = (props: any) => {
+    const userLocation = Dodi.location();
+    return (
+        <div className='user-location'>
+            <NameValuePairView name='Location' value={userLocation} />
+            <Link to='/set-location'><Button variant='link'>(Change Location)</Button></Link>
         </div>
     )
 }
@@ -33,7 +49,7 @@ class HomePage extends React.Component <any, any> {
 
     async componentDidMount () {
         const {error, products} = await Products.list();
-        this.setState({error, products});
+        this.setState({error, products});    
     }
 
     async onSearch (product: any) {
@@ -49,7 +65,7 @@ class HomePage extends React.Component <any, any> {
     render () {
         const { user, history } = this.props;
         const userLocation = Dodi.location();
-        const headline = <span>Find the essentials while sheltering in place</span>
+        const headline = <span>Find the essentials while sheltering in place...</span>
         return (
             <DefaultLayout 
                 headline={headline}>
@@ -59,6 +75,8 @@ class HomePage extends React.Component <any, any> {
                     <React.Fragment>
                         <div className='products'>
                             <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
+                            <UserLocationView />
+
                             <TagCloud products={this.state.products} />
                         </div>
                         <div className='search-result biz list'>
@@ -74,4 +92,4 @@ class HomePage extends React.Component <any, any> {
     }
 }
 
-export default withAuth(HomePage);
+export default withLocation(withAuth(HomePage));

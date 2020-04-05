@@ -23,6 +23,7 @@ export class UserLocation extends React.Component < any, any> {
     setLocation ( e: any) {
         e.preventDefault();
         Dodi.getInstance().setLocation(this.state.location);
+        this.props.history.go(-1);
     }
 
     render () {
