@@ -2,6 +2,27 @@ import * as _ from 'lodash';
 import { IUserProfile } from "../lib/accounts/accounts.interface";
 import Cookies from 'js-cookie';
 
+function setTSCookie (cookieName: string) {
+    var inTenMinutes = new Date(new Date().getTime() + 10 * 60 * 1000);
+    const now = new Date();
+    Cookies.set(cookieName, now.getTime().toString(), { expires: inTenMinutes, path: '/'});
+}
+
+function checkTS (cookieName: string) {
+    const lastTsCookie = Cookies.get(cookieName);
+    if (lastTsCookie) {
+        const lastTS = parseInt(lastTsCookie);
+        const now = new Date();
+        if ((now.getTime() - lastTS) < 1000) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return true;
+    }
+}
+
 export default class Dodi {
     private static _dodi = new Dodi();
 
@@ -33,9 +54,15 @@ export default class Dodi {
     }
 
     setLoginPromptTS () {
-        var inTenMinutes = new Date(new Date().getTime() + 10 * 60 * 1000);
-        const now = new Date();
-        Cookies.set('promptedLogin', now.getTime().toString(), { expires: inTenMinutes, path: '/'});
+        setTSCookie('promptedLogin');
+    }
+
+    setAddStorePromptTS () {
+        setTSCookie('promptedAddStore');
+    }
+
+    setClaimBizPromptTS () {
+        setTSCookie('promptedClaimBiz');
     }
 
     static isSysAdmin (user? : IUserProfile) : boolean {
@@ -60,17 +87,14 @@ export default class Dodi {
     }
 
     static showLoginPromptAgain() : boolean {
-        const prompted = Cookies.get('promptedLogin');
-        if (prompted) {
-            const lastTS = parseInt(prompted);
-            const now = new Date();
-            if ((now.getTime() - lastTS) < 1000) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return true;
-        }
+        return checkTS('promptedLogin');
+    }
+
+    static showAddStoreMsg () : boolean {
+        return checkTS('promptedAddStore');
+    }
+
+    static showClaimBizMsg () : boolean {
+        return checkTS ('promptedClaimBiz');
     }
 }

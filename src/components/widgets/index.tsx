@@ -34,10 +34,10 @@ export const Message_LoginToAddStore = (props: any) => {
 }
 
 export const Message_AddStore = (props: any) => {
-    const showAgain = Dodi.showLoginPromptAgain();
+    const showAgain = Dodi.showAddStoreMsg();
     if (!showAgain) return null;
 
-    Dodi.getInstance().setLoginPromptTS();
+    Dodi.getInstance().setAddStorePromptTS();
 
     return (
         <Alert variant='info'>

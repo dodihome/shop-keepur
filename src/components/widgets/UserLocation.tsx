@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, InputGroup, FormControl, Button } from "react-bootstrap";
-import Cookies from 'js-cookie';
 import Dodi from '../../utils/Dodi';
 import { isValidCityState } from '../../utils/validator';
 
