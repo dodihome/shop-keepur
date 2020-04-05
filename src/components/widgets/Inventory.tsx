@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert } from "react-bootstrap";
+import { Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert, SplitButton } from "react-bootstrap";
 import { fromNow } from "../../utils/formatter";
 import { InventoryStatus, IInventoryItem } from "../../lib/business/business.interface";
 import { ProductSearch } from "../products/ProductSearch";
@@ -226,6 +226,7 @@ export class InventoryEdit extends React.Component<any, any> {
                     <Card.Header>In Stock <i className='fa fa-check-circle' />
                         {user?
                         <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
+                            buttonLabel='Add'
                             isSearching={false}
                             onAdd={this.onAddInStock.bind(this)}
                             onSearch={this.onAddInStock.bind(this)} />
@@ -244,10 +245,10 @@ export class InventoryEdit extends React.Component<any, any> {
                                     </div>
                                     {
                                         user?
-                                        <ButtonGroup>
-                                            <Button variant='outline-primary' onClick={this.onRemove.bind(this, item)}>Ran Out</Button>
-                                            <Button variant='outline-danger' onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Button>
-                                        </ButtonGroup>
+                                        <SplitButton id='btn-ran-out' title='Ran Out'
+                                            variant='outline-primary' onClick={this.onRemove.bind(this, item)}>
+                                            <Dropdown.Item onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Dropdown.Item>
+                                        </SplitButton>
                                         : null
                                     }
                                 </ListGroup.Item>
@@ -261,6 +262,7 @@ export class InventoryEdit extends React.Component<any, any> {
                         Out Of Stock <i className='fa fa-minus-circle' />
                         {user?
                         <ProductSearch size='md' hideLabel={true} placeholder='ex. toilet paper'
+                            buttonLabel='Add'
                             isSearching={false}
                             onAdd={this.onAddOutOfStock.bind(this)}
                             onSearch={this.onAddOutOfStock.bind(this)} />
@@ -279,10 +281,10 @@ export class InventoryEdit extends React.Component<any, any> {
                                     </div>
                                     {
                                         user?
-                                        <ButtonGroup>
-                                            <Button variant='outline-primary' onClick={this.onRemove.bind(this, item)}>Re-Stocked</Button>
-                                            <Button variant='outline-danger' onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Button>
-                                        </ButtonGroup>
+                                        <SplitButton id='btn-restocked' title='Re-Stocked'
+                                            variant='outline-primary' onClick={this.onRemove.bind(this, item)} >
+                                            <Dropdown.Item onClick={this.onDeleteWishlistItem.bind(this, item)}>Delete</Dropdown.Item>
+                                        </SplitButton>
                                         : null
                                     }
                                 </ListGroup.Item>

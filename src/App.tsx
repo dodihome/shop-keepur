@@ -34,9 +34,9 @@ class App extends React.Component {
         <Route exact path='/user/profile' component={UserProfilePage} />
 
         <Route exact path='/bizz/new' component={BizEdit} />
-        <Route exact path='/bizz/:id' component={BizView} />
-        <Route exact path='/bizz/claim/:id' component={BizClaim} />
-        <Route exact path='/bizz/edit/:id' component={BizEdit} />
+        <Route exact path='/bizz/:id/view' component={BizView} />
+        <Route exact path='/bizz/:id/claim' component={BizClaim} />
+        <Route exact path='/bizz/:id/edit' component={BizEdit} />
         <Route exact path='/bizz' component={BizzList} />
 
         <Route exact path='/search' component={SearchPage} />

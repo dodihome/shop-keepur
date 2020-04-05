@@ -1,6 +1,6 @@
 import React from 'react';
 import { IBizLite } from '../../lib/business/business.interface';
-import { CardGroup, Card, Button, Badge, CardDeck } from 'react-bootstrap';
+import { Card, Button, Badge, CardDeck } from 'react-bootstrap';
 import { PhoneView } from '../../components/widgets/Phone';
 import { Link } from 'react-router-dom';
 import { AddressView } from '../widgets/Address';
@@ -12,15 +12,15 @@ class BizCard extends React.Component<any, any> {
 
     onClick (e : any) {
         e.preventDefault();
-        this.props.history.push('/bizz/' + this.props.biz.id);
+        this.props.history.push('/bizz/' + this.props.biz.id + '/view');
     }
 
     render () {
         const {biz, user} = this.props;
         const showClaimButton = (user && !biz.isClaimed);
-        const claimLink = '/bizz/claim/' + biz.id;
+        const claimLink = '/bizz/' + biz.id + '/claim';
 
-        const viewLink = '/bizz/' + biz.id;
+        const viewLink = '/bizz/' + biz.id + '/view';
 
         return <Card key={biz.id} className='biz-card'>
             <Card.Header>

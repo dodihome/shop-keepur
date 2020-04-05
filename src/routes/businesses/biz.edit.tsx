@@ -86,7 +86,7 @@ class BizNew extends React.Component<any, any> {
             if (error) {
                 this.setState({error});
             } else {
-                this.props.history.push('/bizz/' + this.state.id);
+                this.props.history.push('/bizz/' + this.state.id + '/view');
             }
         } else {
             const createDto = {
@@ -106,7 +106,7 @@ class BizNew extends React.Component<any, any> {
             if (error) {
                 this.setState({error});
             } else {
-                this.props.history.push('/bizz/claim/' + bizId);
+                this.props.history.push('/bizz/' + bizId + '/view');
             }    
         }
     }

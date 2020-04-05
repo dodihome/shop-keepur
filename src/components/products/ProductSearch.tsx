@@ -73,9 +73,12 @@ export class ProductSearch extends React.Component<any, any> {
     }
 
     render () {
-        let buttonLabel = 'Go';
-        if (this.state.selected && this.state.selected[0] && this.state.selected[0].id.startsWith('new-id')) {
-            buttonLabel = 'Add';
+        let { buttonLabel } = this.props;
+        if (!buttonLabel) {
+            let buttonLabel = 'Go';
+            if (this.state.selected && this.state.selected[0] && this.state.selected[0].id.startsWith('new-id')) {
+                buttonLabel = 'Add';
+            }    
         }
 
         const { hideLabel } = this.props;

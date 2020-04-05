@@ -95,8 +95,8 @@ class BizView extends React.Component<any, any> {
         }
 
         const showClaimButton = Bizz.canClaim(biz, user);
-        const claimLink = '/bizz/claim/' + biz.id;
-        const editLink = '/bizz/edit/' + biz.id;
+        const claimLink = '/bizz/' + biz.id + '/claim';
+        const editLink = '/bizz/' + biz.id + '/edit';
 
         const showEditButton = Bizz.canEdit(biz, user);
 
