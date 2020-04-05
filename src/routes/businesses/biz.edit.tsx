@@ -21,7 +21,7 @@ class BizNew extends React.Component<any, any> {
             const bizId = this.props.match.params.id;
             const { user } = this.props;
 
-            if (bizId !== 'new') {
+            if (bizId && bizId !== 'new' && bizId !== 'undefined') {
                 const {error, biz} = await Bizz.managerView(bizId, user.id);
                 if (error) {
                     this.setState({error});

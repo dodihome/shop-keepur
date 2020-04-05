@@ -17,11 +17,18 @@ main {
 }
 
 .footer {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
     background-color: #f5f5f5;
-    font-size: smaller;
+    font-size: smaller;    
+    
+    &.web {
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+    }
+
+    &.mobile {
+        position: relative;
+    }
 }
 
 .footer > .container {
