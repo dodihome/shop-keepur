@@ -12,6 +12,7 @@ import Products from '../lib/product/client';
 import { BizzList } from '../components/bizz/BizzList';
 import { withAuth } from '../utils/withAuth';
 import { TagCloud } from '../components/products/TagCloud';
+import Dodi from '../utils/Dodi';
 
 const SetUserLocation = (props: any)=>{
     return (
@@ -46,9 +47,12 @@ class HomePage extends React.Component <any, any> {
     }
 
     render () {
-        const { user, userLocation, history } = this.props;
+        const { user, history } = this.props;
+        const userLocation = Dodi.location();
+        const headline = <span>Find the essentials while sheltering in place</span>
         return (
-            <DefaultLayout homepage={true}>
+            <DefaultLayout 
+                headline={headline}>
                 <div className='home'>
                 {
                     userLocation? 
@@ -70,4 +74,4 @@ class HomePage extends React.Component <any, any> {
     }
 }
 
-export default withAuth(withLocation(HomePage));
+export default withAuth(HomePage);

@@ -15,7 +15,7 @@ class Navigation extends React.Component<any, any>  {
         return (
             <Nav>
                 <Nav.Link href="/products">Products</Nav.Link>
-                <Nav.Link href="/bizz">Businesses</Nav.Link>
+                <Nav.Link href="/bizz">Local Stores</Nav.Link>
                 <NavDropdown title={user.displayName} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Divider />
@@ -39,25 +39,21 @@ class Navigation extends React.Component<any, any>  {
         return (
             <Nav>
                 <Nav.Link href="/products">Products</Nav.Link>
-                <Nav.Link href="/bizz">Businesses</Nav.Link>
+                <Nav.Link href="/bizz">Local Stores</Nav.Link>
                 <Nav.Link href='/user/login'>Login</Nav.Link>
             </Nav>
         )
     }
 
     render () {
-        const { homepage } = this.props;
-
+        const { headline } = this.props;
+        console.log(this.props);
         return (
             <Navbar bg="dark" variant="dark" fixed='top' expand='md'>
                 <Navbar.Brand href="/">Shop Keepur</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <div className='headline'>
-                        <Navbar.Text>
-                            { homepage? null : <UserLocation /> }
-                        </Navbar.Text>
-                    </div>
+                <div className='headline'>{headline}</div>
                     {
                         this.props.user? 
                         this.renderWithUser () : this.renderWithoutUser()

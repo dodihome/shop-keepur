@@ -2,11 +2,13 @@
     margin-bottom: 20px;
 }
 
+.navbar .navbar-collapse {
+    justify-content: space-between;
+}
+
 .navbar .headline {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    font-weight: bold;
+    color: rgba(255, 255, 255, .5);
+    font-weight: 500;
     font-size: larger;
 }
 
