@@ -15,6 +15,7 @@ import { TagCloud } from '../components/products/TagCloud';
 import Dodi from '../utils/Dodi';
 import { NameValuePairView } from '../components/widgets/NameValuePair';
 import { Link } from 'react-router-dom';
+import { UserLocationView } from '../components/widgets';
 
 export const SetUserLocation = (props: any)=>{
     return (
@@ -31,16 +32,6 @@ export const SetUserLocation = (props: any)=>{
                 </div>
             </div>
         </DefaultLayout>
-    )
-}
-
-export const UserLocationView = (props: any) => {
-    const userLocation = Dodi.location();
-    return (
-        <div className='user-location'>
-            <NameValuePairView name='Location' value={userLocation} />
-            <Link to='/set-location'><Button variant='link'>(Change Location)</Button></Link>
-        </div>
     )
 }
 

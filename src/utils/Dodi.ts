@@ -32,6 +32,12 @@ export default class Dodi {
         this.location = userLocation;
     }
 
+    setLoginPromptTS () {
+        var inTenMinutes = new Date(new Date().getTime() + 10 * 60 * 1000);
+        const now = new Date();
+        Cookies.set('promptedLogin', now.getTime().toString(), { expires: inTenMinutes, path: '/'});
+    }
+
     static isSysAdmin (user? : IUserProfile) : boolean {
         if (!user) {
             user = Dodi.user();
@@ -51,5 +57,20 @@ export default class Dodi {
             this._dodi.location = location;
         }
         return location;
+    }
+
+    static showLoginPromptAgain() : boolean {
+        const prompted = Cookies.get('promptedLogin');
+        if (prompted) {
+            const lastTS = parseInt(prompted);
+            const now = new Date();
+            if ((now.getTime() - lastTS) < 1000) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
 }

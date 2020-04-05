@@ -8,7 +8,7 @@ import './product.scss';
 import { TagCloud } from '../../components/products/TagCloud';
 import { ProductSearch } from '../../components/products/ProductSearch';
 import { withLocation } from '../../utils/withLocation';
-import { UserLocationView } from '../homepage';
+import { UserLocationView } from '../../components/widgets';
 
 class ProductsPage extends React.Component<any, any> {
     state : any = {} as any;

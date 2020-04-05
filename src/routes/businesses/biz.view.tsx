@@ -11,6 +11,7 @@ import TagsEdit, { TagsView } from "../../components/widgets/TagsEdit";
 import { InventoryEdit } from "../../components/widgets/Inventory";
 import { IInventoryItem } from "../../lib/business/business.interface";
 import { fromNow } from "../../utils/formatter";
+import { Message_LoginToEdtiInventory } from "../../components/widgets";
 
 class BizView extends React.Component<any, any> {
     state : any = {} as any;
@@ -100,6 +101,7 @@ class BizView extends React.Component<any, any> {
 
         const showEditButton = Bizz.canEdit(biz, user);
 
+        const messageBlock = user? null : <Message_LoginToEdtiInventory />
         return (
             <DefaultLayout>
                 <div className='biz view'>
@@ -152,6 +154,9 @@ class BizView extends React.Component<any, any> {
                             </React.Fragment>
                         }
                     </div>
+                    
+                    <Message_LoginToEdtiInventory />
+
                     <div className='biz-inventory'>
                         <div className='heading'>
                             <span className='title'>Products</span>

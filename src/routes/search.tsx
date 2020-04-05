@@ -13,7 +13,8 @@ import { Divider } from '../components/widgets/Divider';
 import Dodi from '../utils/Dodi';
 import { NameValuePairView } from '../components/widgets/NameValuePair';
 import { withLocation } from '../utils/withLocation';
-import { UserLocationView } from './homepage';
+import { UserLocationView, Message_LoginToAddStore, Message_AddStore } from '../components/widgets';
+import { withAuth } from '../utils/withAuth';
 
 class SearchPage extends React.Component <any, any> {
     state : any = { bizz : [] } as any;
@@ -37,6 +38,13 @@ class SearchPage extends React.Component <any, any> {
     render () {
         const { user, history } = this.props;
         const userLocation = Dodi.location();
+
+        let messageBlock = null;
+        if (this.state.matchCount === 0 && user)
+            messageBlock = <Message_AddStore />;
+        else
+            messageBlock = <Message_LoginToAddStore />;
+
         return (
             <DefaultLayout>
                 <div className='home'>
@@ -48,6 +56,8 @@ class SearchPage extends React.Component <any, any> {
                             <NameValuePairView name='Search Result' value={this.state.matchCount} />
                         </div>
 
+                        {messageBlock}
+                        
                         {
                             this.state.matchCount ?
                             <Divider hidden={true} />
@@ -62,4 +72,4 @@ class SearchPage extends React.Component <any, any> {
     }
 }
 
-export default withLocation(SearchPage);
+export default withLocation(withAuth(SearchPage));
