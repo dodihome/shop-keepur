@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ListGroup, Card, CardDeck, Dropdown, DropdownButton, ButtonGroup, Alert, SplitButton } from "react-bootstrap";
+import { Button, ListGroup, Card, CardDeck, Dropdown, ButtonGroup, Alert, SplitButton } from "react-bootstrap";
 import { fromNow } from "../../utils/formatter";
 import { InventoryStatus, IInventoryItem } from "../../lib/business/business.interface";
 import { ProductSearch } from "../products/ProductSearch";
