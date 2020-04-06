@@ -67,65 +67,80 @@
 
     &.list {
 
-
-        .heading {
+        .search-bar {
             display: flex;
             justify-content: space-between;
             padding-bottom: 10px;
         }
 
-        .biz-card {
-            min-width: 300px;
-            max-width: 500px;
-            .meta {
-                font-size: 0.8em;
-                margin-bottom: 1em;
+        .search-result {
+            .biz-card {
+                padding: 20px 0px;
+                min-width: 300px;
+                border-bottom: 1px solid #ccc;
+
+                .meta {
+                    font-size: 0.8em;
+                    margin-bottom: 1em;
+                }    
+    
+                .contact-info {
+                    font-size: 0.8em;
+                }
+    
+                .heading {
+                    .title {
+                        font-size: 1.1em;
+                        font-weight: 700;
+                    }
+        
+                    .badge {
+                        margin-left: 10px;
+                    }
+        
+                    button {
+                        display: inline-block;
+                        margin-left: 10px;
+                        font-size: small;
+                    }
+                }
+
+                .biz-body {
+                    .inventory {
+                        padding-top: 20px;
+
+                        .block {
+                            margin-bottom: 5px;
+                        }
+
+                        .in-stock {
+                            background-color: #e0f0e0;
+                            color: #337033;
+                        }
+    
+                        .out-of-stock {
+                            background-color: #eee;
+                            color: #703333;
+                        }
+                        
+                        .heading {
+                            margin-bottom: 0;
+                            padding: 7px 10px;
+                            display: inline-block;
+                            font-weight: 600;
+                            width: 120px;
+                        }
+    
+                        .items {
+                            display: inline-block;
+                            margin-left: 10px;
+                        }
+    
+                    }
+    
+                }
+        
             }    
-
-            .card-header {
-                .title {
-                    font-size: 1.1em;
-                    font-weight: 700;
-                }
-    
-                .badge {
-                    margin-left: 10px;
-                }
-    
-                button {
-                    display: inline-block;
-                    margin-left: 10px;
-                    font-size: small;
-                }
-            }
-
-            .card-body {
-                .inventory {
-                    padding-top: 20px;
-
-                    .in-stock {
-                        background-color: #e0f0e0;
-                        color: #337033;
-                    }
-
-                    .out-of-stock {
-                        background-color: #eee;
-                        color: #703333;
-                    }
-                    
-                    .heading {
-                        display: block;
-                        font-weight: 600;
-                    }
-
-                    .items {
-                        display: block;
-                    }
-
-                }
-
-            }
-    
         }
     }
 

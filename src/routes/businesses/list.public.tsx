@@ -31,7 +31,7 @@ class ConsumerList extends React.Component<any, any> {
         return (
             <DefaultLayout>
                 <div className='biz list'>
-                    <div className='heading'>
+                    <div className='search-bar'>
                         <h1>{userLocation} <ChangeLocationPopover /></h1>
                         {user ?
                         <Link to='/bizz/new'><Button variant='outline-primary'>+ Add Store</Button></Link>

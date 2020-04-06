@@ -60,7 +60,7 @@ class SearchPage extends React.Component <any, any> {
                         
                         {
                             this.state.matchCount ?
-                            <Divider hidden={true} />
+                            null
                             :
                             <Divider text={`Stores in ${userLocation}`} />
                         }

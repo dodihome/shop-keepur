@@ -13,7 +13,7 @@ export const TagCloud = (props: any) => {
     return (<div className='tag-cloud'>
         {
             products.map((p)=> {
-                const fontSize = 1 + (p.searchCount - min)*min/max;
+                const fontSize = 1 + 0.1*(p.searchCount - min)*min/max;
                 const fsStr = fontSize + 'em';
                 const url = '/search?p=' + p.id;
                 return <span key={p.id} style={{fontSize: fsStr}}>

@@ -31,14 +31,22 @@ export class InventoryView extends React.Component<any, any> {
     renderBasicView (inStock : any[], outOfStock : any[]) {
         return (
             <div className='inventory'>
-                <Alert variant='success' className='in-stock'>
-                    <span className='heading'>In Stock: </span>           
-                    <BasicItems items={inStock} />
-                </Alert>
-                <Alert variant='secondary' className='out-of-stock'>
-                    <span className='heading'>Out Of Stock: </span>           
-                    <BasicItems items={outOfStock} />         
-                </Alert>
+                {
+                    inStock.length > 0 ?
+                    <div className='block'>
+                        <span className='heading in-stock'>In Stock: </span>           
+                        <BasicItems items={inStock} />
+                    </div>
+                    : null
+                }
+                {
+                    outOfStock.length > 0 ?
+                    <div className='block'>
+                        <span className='heading out-of-stock'>Out Of Stock: </span>           
+                        <BasicItems items={outOfStock} />         
+                    </div>
+                    : null
+                }
             </div>
         )
     }
@@ -117,7 +125,11 @@ export class InventoryView extends React.Component<any, any> {
         })
 
         if (basic) {
-            return this.renderBasicView (inStock, outOfStock);
+            if (items.length > 0) {
+                return this.renderBasicView (inStock, outOfStock);
+            } else {
+                return null;
+            }
         } else {
             return this.renderStandardView(inStock, outOfStock, unknown);
         }

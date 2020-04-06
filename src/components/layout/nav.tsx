@@ -5,7 +5,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { withAuth } from '../../utils/withAuth';
 import Dodi from '../../utils/Dodi';
-import { UserLocation } from '../widgets/UserLocation';
 
 class Navigation extends React.Component<any, any>  {
     renderWithUser () {

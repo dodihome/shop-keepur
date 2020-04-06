@@ -22,8 +22,8 @@ class BizCard extends React.Component<any, any> {
 
         const viewLink = '/bizz/' + biz.id + '/view';
 
-        return <Card key={biz.id} className='biz-card'>
-            <Card.Header>
+        return <div key={biz.id} className='biz-card'>
+            <div className='heading'>
                 <span className='title'><Link to={viewLink}>{biz.name}</Link></span> 
                 {
                     showClaimButton? 
@@ -37,25 +37,21 @@ class BizCard extends React.Component<any, any> {
                 <div className='meta'>
                     Last Update: <strong>{fromNow(biz.meta.lastModifiedAt)}</strong>, by <strong>{biz.meta.lastModifiedBy.displayName}</strong>
                 </div>
-
-                <Card.Text>
+                <div className='contact-info'>
                     <div><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></div>
                 {
                     biz.phone?
                     <div><i className="fas fa-phone"></i><PhoneView phone={biz.phone} /></div>
                     : null
                 }
-                </Card.Text>
-                <TagsView tags={biz.tags} />
+                </div>
+            </div>
 
-            </Card.Header>
-
-            <Card.Body>
+            <div className='biz-body'>
                 <InventoryView items={biz.inventory} basic={true} />
+            </div>
 
-            </Card.Body>
-
-        </Card>
+        </div>
     }
 }
 
@@ -63,13 +59,13 @@ export class BizzList extends React.Component<any, any> {
     render () {
         const { bizz } = this.props;
         return (
-            <CardDeck>
+            <div className='search-result'>
             {
                 bizz.map((biz: IBizLite) => {
                     return <BizCard key={biz.id} biz={biz} history={this.props.history} user={this.props.user} />
                 })
             }
-            </CardDeck>
+            </div>
         )
     }
 }

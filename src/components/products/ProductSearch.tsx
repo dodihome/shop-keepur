@@ -21,8 +21,10 @@ export class ProductSearch extends React.Component<any, any> {
             selected: null,
             options: []
         })
-        const instance = this.ref.current.getInstance();
-        instance.clear();
+        if (this.ref.current) {
+            const instance = this.ref.current.getInstance();
+            instance.clear();    
+        }
     }
 
     componentDidUpdate (oldProps : any, oldState: any) {

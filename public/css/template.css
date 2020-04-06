@@ -15,6 +15,7 @@ div#root {
 .main.content {
   flex: 1 0 auto;
   padding-top: 5em;
+  padding-bottom: 70px;
 }
 
 .phoneNumber label {
