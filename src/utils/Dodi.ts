@@ -72,6 +72,11 @@ export default class Dodi {
             location = Cookies.get('location');    
             this._dodi.location = location;
         }
+
+        if (!location) {
+            location = 'San Jose, CA';
+            this._dodi.setLocation(location);
+        }
         return location;
     }
 }

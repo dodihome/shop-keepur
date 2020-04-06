@@ -2,12 +2,13 @@ import React from 'react';
 import { Form, InputGroup, FormControl, Button } from "react-bootstrap";
 import Dodi from '../../utils/Dodi';
 import { isValidCityState } from '../../utils/validator';
+import { titleCase } from 'title-case';
 
 export class UserLocation extends React.Component < any, any> {
     state : any = { location: '' } as any;
 
     componentDidMount () {
-        const location = Dodi.location();
+        const location = titleCase(Dodi.location());
         if (location) {
             this.setState ({location});
         }

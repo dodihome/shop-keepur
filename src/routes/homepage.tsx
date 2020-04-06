@@ -12,6 +12,9 @@ import Products from '../lib/product/client';
 import { withAuth } from '../utils/withAuth';
 import { TagCloud } from '../components/products/TagCloud';
 import { UserLocationView } from '../components/widgets';
+import Bizz from '../lib/business/client';
+import { BizzList } from '../components/bizz/BizzList';
+import { Divider } from '../components/widgets/Divider';
 
 export const SetUserLocation = (props: any)=>{
     return (
@@ -36,7 +39,8 @@ class HomePage extends React.Component <any, any> {
 
     async componentDidMount () {
         const {error, products} = await Products.list();
-        this.setState({error, products});    
+        const {bizz} = await Bizz.latestUpdates();
+        this.setState({error, products, bizz});
     }
 
     async onSearch (product: any) {
@@ -59,6 +63,11 @@ class HomePage extends React.Component <any, any> {
                         <ProductSearch onSearch={this.onSearch.bind(this)} onAdd={this.onAddProduct.bind(this)} />
                         <UserLocationView />
                         <TagCloud products={this.state.products} />
+                    </div>
+                    <Divider />
+                    <div className='biz list'>
+                        <h1>Updates</h1>
+                        <BizzList bizz={this.state.bizz} />
                     </div>
                 </div>
             </DefaultLayout>

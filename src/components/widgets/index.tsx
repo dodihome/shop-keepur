@@ -68,7 +68,7 @@ export const Message_LoginToEdtiInventory = (props: any) => {
     return (
         <Alert variant='info'>
             <p><strong>Login</strong> to update store info.</p>
-            <p><strong>Why require login?</strong> Think about those who have limited time to shop and count on your information to get it done.  
+            <p><strong>Why require login?</strong> Think about those who have limited time to shop and count on the information you provide to get it done.  
                 A little accountability goes a long way.</p>
             <hr/>
             <div className='d-flex justify-content-end'>

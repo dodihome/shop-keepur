@@ -116,6 +116,14 @@ const Bizz = {
         return res;
     },
 
+    latestUpdates: async () => {
+        const location = Dodi.location();
+        const uri = '/api/bizz/latest-updates?location=' + location;
+        const resRaw = await fetch (uri);
+        const res = await resRaw.json();
+        return res;
+    },
+
     getUniqueLocations : async () => {
         const uri = '/api/bizz/unique-city-states';
         const resRaw = await fetch (uri);
