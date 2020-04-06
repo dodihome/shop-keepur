@@ -9,7 +9,8 @@ export interface IAddress {
     street1 : string,
     street2 : string,
     city : string,
-    state: string
+    state: string,
+    zipcode: number
 }
 
 export interface ISocialMediaAccount {

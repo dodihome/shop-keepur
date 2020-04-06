@@ -40,7 +40,7 @@ class SearchPage extends React.Component <any, any> {
         const userLocation = Dodi.location();
 
         let messageBlock = null;
-        if (this.state.matchCount === 0 && user)
+        if (user && !this.state.matchCount)
             messageBlock = <Message_AddStore />;
         else
             messageBlock = <Message_LoginToAddStore />;

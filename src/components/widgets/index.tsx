@@ -48,8 +48,8 @@ export const Message_AddStore = (props: any) => {
 
     return (
         <Alert variant='info'>
-            <Alert.Heading>Dont' see what you are looking for?</Alert.Heading>
-            <p>Information is out there.  Help others by contributing data.</p>
+            <Alert.Heading>Don't see what you are looking for?</Alert.Heading>
+            <p>Add your favorite stores and help keep the information up to date.</p>
             <hr/>
             <div className='d-flex justify-content-end'>
                 <Link to='/bizz/new'><Button variant='outline-primary'>Add a Store</Button></Link>

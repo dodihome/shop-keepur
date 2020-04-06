@@ -8,7 +8,7 @@ import './biz.scss';
 import { WebsiteEdit } from '../../components/widgets/Website';
 import { withAuth } from '../../utils/withAuth';
 import Bizz from '../../lib/business/client';
-import { AddressEdit } from '../../components/widgets/Address';
+import { AddressEdit, SimpleAddressEdit } from '../../components/widgets/Address';
 
 class BizNew extends React.Component<any, any> {
     state : any = {
@@ -136,7 +136,7 @@ class BizNew extends React.Component<any, any> {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Address (Required)</Form.Label>
-                                    <AddressEdit address={this.state.address} onUpdate={this.onUpdateAddress.bind(this)} />
+                                    <SimpleAddressEdit address={this.state.address} onUpdate={this.onUpdateAddress.bind(this)} />
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Phone Number</Form.Label>

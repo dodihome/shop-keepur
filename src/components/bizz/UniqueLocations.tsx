@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import Bizz from "../../lib/business/client";
 import { Button } from "react-bootstrap";
 import './location.scss';
+import { titleCase } from "title-case";
 
 export class UniqueLocations extends React.Component <any, any> {
     state : any = {} as any;
@@ -39,7 +40,7 @@ export class UniqueLocations extends React.Component <any, any> {
                             {
                                 _.orderBy(vals, ['_id.city'], ['asc']).map((city, idx) => {
 
-                                    const linkText = hideCount? city._id.city : city._id.city + ' (' + city.count + ')';
+                                    const linkText = hideCount? titleCase(city._id.city) : titleCase(city._id.city) + ' (' + city.count + ')';
                                 return <span key={idx} className='by-city'>
                                             <Button variant='link' onClick={this.onClick.bind(this, city)}>
                                                 {linkText}

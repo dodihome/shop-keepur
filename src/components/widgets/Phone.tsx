@@ -3,13 +3,12 @@ import { FormControl, InputGroup, Form } from 'react-bootstrap';
 
 import { reformatPhoneNumber } from '../../helpers/contacts';
 import { isPhoneNumber } from '../../utils/validator';
+import { titleCase } from 'title-case';
 
 const phoneLabelOptions = [
     {key: 'default', text: '-', value: ''},
     {key: 'mobile', text: 'Mobile', value: 'mobile'},
     {key: 'business', text: 'Business', value: 'business'},
-    {key: 'home', text: 'Home', value: 'home'},
-    {key: 'fax', text: 'Fax', value: 'fax'},
 ] as any;
 
 const sideLinkStyle = {
@@ -29,7 +28,7 @@ export class PhoneView extends Component<any, any> {
                     phone?
                     <React.Fragment>
                         <span>{phone.number}</span>
-                        <label>({phone.label})</label>
+                        <label>({titleCase(phone.label)})</label>
                     </React.Fragment>
                     :
                     <span>--</span>
