@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { IUserProfile } from "../lib/accounts/accounts.interface";
 import Cookies from 'js-cookie';
+import { titleCase } from 'title-case';
 
 
 export default class Dodi {
@@ -29,8 +30,8 @@ export default class Dodi {
     }
 
     setLocation (userLocation: string) {
-        Cookies.set('location', userLocation, { expires: 7, path: '/'});
-        this.location = userLocation;
+        Cookies.set('location', titleCase(userLocation), { expires: 7, path: '/'});
+        this.location = titleCase(userLocation);
     }
 
     static setTimestamp (cookieName: string, expiresInMins: number) {
