@@ -40,3 +40,18 @@ main {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.system-messages {
+    position: fixed;
+    bottom: 60px;
+    right: 2px;
+    z-index: 999;
+
+    .toast {
+        background-color: rgba(248, 248, 240, 0.75);
+
+        .toast-header {
+            background-color: rgba(248, 248, 240, 0.85);
+        }
+    }
+}

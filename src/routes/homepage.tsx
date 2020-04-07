@@ -4,7 +4,7 @@ import DefaultLayout from '../components/layout/default';
 import { UserLocation } from '../components/widgets/UserLocation';
 
 import './homepage.scss';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { withLocation } from '../utils/withLocation';
 import { ProductSearch } from '../components/products/ProductSearch';
 
@@ -15,6 +15,7 @@ import { UserLocationView } from '../components/widgets';
 import Bizz from '../lib/business/client';
 import { BizzList } from '../components/bizz/BizzList';
 import { Divider } from '../components/widgets/Divider';
+import { usePosition, BrowserLocation } from '../components/widgets/BrowserLocation';
 
 export const SetUserLocation = (props: any)=>{
     return (
@@ -66,7 +67,7 @@ class HomePage extends React.Component <any, any> {
                     </div>
                     <Divider />
                     <div className='biz list'>
-                        <h1>Updates</h1>
+                        <h1>Store Updates</h1>
                         <BizzList bizz={this.state.bizz} />
                     </div>
                 </div>

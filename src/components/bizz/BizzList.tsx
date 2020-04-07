@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { AddressView } from '../widgets/Address';
 import { fromNow } from '../../utils/formatter';
 import { TagsView } from '../widgets/TagsEdit';
-import { InventoryView } from '../widgets/Inventory';
+import { InventoryView, InventoryEdit } from '../widgets/Inventory';
 
 class BizCard extends React.Component<any, any> {
 
