@@ -8,7 +8,7 @@ import './biz.scss';
 import { WebsiteEdit } from '../../components/widgets/Website';
 import { withAuth } from '../../utils/withAuth';
 import Bizz from '../../lib/business/client';
-import { AddressEdit, SimpleAddressEdit } from '../../components/widgets/Address';
+import { SimpleAddressEdit } from '../../components/widgets/Address';
 
 class BizNew extends React.Component<any, any> {
     state : any = {

@@ -9,6 +9,10 @@
         }
     }
 
+    h3 {
+        font-size: 1.2em;
+    }
+
     i.fas {
         display: inline-block;
         width: 20px;
@@ -145,7 +149,15 @@
         }
     }
 
-    &.view {
+    &.view,
+    &.manage {
+
+        td {
+            button {
+                margin-left: 10px;
+            }
+        }
+        
         span.info {
             display: block;
         }
@@ -156,6 +168,12 @@
 
             .badge {
                 margin-left: 10px;
+            }
+
+            .actions {
+                button {
+                    margin-left: 10px;
+                }
             }
         }
 

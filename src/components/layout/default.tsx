@@ -39,7 +39,6 @@ class DefaultLayout extends React.Component <any, any> {
                 <Nav {...this.props} />
                 <MainContent {...this.props} />
                 <Footer {...this.props} />
-                <SystemMessages />
             </React.Fragment>
         )
     }

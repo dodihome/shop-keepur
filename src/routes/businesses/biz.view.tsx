@@ -97,7 +97,9 @@ class BizView extends React.Component<any, any> {
         const showClaimButton = Bizz.canClaim(biz, user);
         const claimLink = '/bizz/' + biz.id + '/claim';
         const editLink = '/bizz/' + biz.id + '/edit';
+        const manageTeamLink = '/bizz/' + biz.id + '/manage-team';
 
+        const showManageTeamButton = Bizz.canManagerTeam(biz, user);
         const showEditButton = Bizz.canEdit(biz, user);
 
         const messageBlock = user? null : <Message_LoginToEdtiInventory />
@@ -119,13 +121,19 @@ class BizView extends React.Component<any, any> {
                                 }
                             </h1>
                         </div>
-                        {
-                        showEditButton?
                         <div className='actions'>
-                            <Link to={editLink}><Button variant='outline-primary'>Edit Info</Button></Link>
+                            {
+                                showManageTeamButton?
+                                <Link to={manageTeamLink}><Button variant='outline-secondary'>Manage Team</Button></Link>
+                                : null
+                            }
+                            {
+                            showEditButton?
+                                <Link to={editLink}><Button variant='outline-primary'>Edit Info</Button></Link>
+                            : null
+                            }
+
                         </div>
-                        : null
-                    }
                     </div>
                     <div className='contact-info'>
                         <span className='info'><i className="fas fa-map-marker-alt"></i><AddressView address={biz.address} /></span>

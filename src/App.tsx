@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Blank from './components/Blank';
 import HomePage, { SetUserLocation } from './routes/homepage';
 import { LoginPage } from './routes/accounts/login';
 import { SignUpPage } from './routes/accounts/sign-up';
@@ -14,6 +13,7 @@ import BizEdit from './routes/businesses/biz.edit';
 import BizView from './routes/businesses/biz.view';
 import BizClaim from './routes/businesses/biz.claim';
 import BizzList from './routes/businesses/list.public';
+import BizManageTeam from './routes/businesses/biz.team';
 
 import BizzAdmin from './routes/admin/bizz';
 import ProductsPage from './routes/products/list';
@@ -38,6 +38,7 @@ class App extends React.Component {
         <Route exact path='/bizz/:id/view' component={BizView} />
         <Route exact path='/bizz/:id/claim' component={BizClaim} />
         <Route exact path='/bizz/:id/edit' component={BizEdit} />
+        <Route exact path='/bizz/:id/manage-team' component={BizManageTeam} />
         <Route exact path='/bizz' component={BizzList} />
 
         <Route exact path='/search' component={SearchPage} />

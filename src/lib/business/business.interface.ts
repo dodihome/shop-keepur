@@ -80,5 +80,6 @@ export interface IBizConsumerView {
     emails: string[],
     isClaimed: boolean,
     people: any[],
-    inventory: IInventoryItem[]
+    inventory: IInventoryItem[],
+    claims: any[]
 }

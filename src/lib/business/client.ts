@@ -143,6 +143,31 @@ const Bizz = {
         return (await resRaw.json());
     },
 
+    inviteTeamMember : async (bizId : string, userId: string, name: string, email: string, role: string)=> {
+        const uri = '/api/bizz/invite-team-member';
+        const resRaw = await fetch (uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({bizId, userId, name, email, role})
+        });
+        const res = await resRaw.json();
+        return res;
+    },
+
+    rescindInvitation : async (token: string, userId: string) => {
+        const uri = '/api/bizz/rescind-invite?token=' + token + '&userId=' + userId;
+        const resRaw = await fetch (uri);
+        return (await resRaw.json());
+    },
+
+    resendInvitation : async (token: string, userId: string) => {
+        const uri = '/api/bizz/resend-invite?token=' + token + '&userId=' + userId;
+        const resRaw = await fetch (uri);
+        return (await resRaw.json());
+    },
+
     canClaim (biz: IBizConsumerView, user: IUserProfile) {
         if (!biz) return false;
 
@@ -159,8 +184,22 @@ const Bizz = {
         if (!biz.isClaimed) {
             return true;
         } else {
-            const found = _.find(biz.people, (p)=> {
-                return (p.userId === user.id);
+            const found = _.find(biz.claims, (claim)=> {
+                return (claim.state === 'ACCEPTED' && claim.claimedBy.userId === user.id);
+            })
+            return (found? true: false);
+        }
+    },
+
+    canManagerTeam (biz: IBizConsumerView, user: IUserProfile) {
+        if (!biz) return false;
+
+        if (!user) return false;
+        if (!biz.isClaimed) {
+            return false;
+        } else {
+            const found = _.find(biz.claims, (claim)=> {
+                return (claim.state === 'ACCEPTED' && claim.claimedBy.userId === user.id);
             })
             return (found? true: false);
         }
