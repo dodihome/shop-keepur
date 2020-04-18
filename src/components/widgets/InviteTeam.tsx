@@ -9,6 +9,8 @@ const roleOptions = [
     { value: 'Member', label: 'Team Member'}
 ];
 export const InviteTeamMember = (props) => {
+    const { bizId } = props;
+    
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ role, setRole ] = useState('Member');
@@ -44,10 +46,11 @@ export const InviteTeamMember = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        
         if (!name) {
             setInvalidName (true);
         } else {
-            props.onInvite(name, email, role);
+            props.onInvite(name, email, role, bizId);
             setName('');
             setEmail('');
             setRole('Member');

@@ -168,6 +168,12 @@ const Bizz = {
         return (await resRaw.json());
     },
 
+    getInvitations : async (bizId: string, userId: string) => {
+        const uri = '/api/bizz/fetch-invitations?bizId=' + bizId + '&userId=' + userId;
+        const resRaw = await fetch (uri);
+        return (await resRaw.json());
+    },
+
     canClaim (biz: IBizConsumerView, user: IUserProfile) {
         if (!biz) return false;
 
