@@ -141,7 +141,7 @@ export default class SignUp extends Component {
                     gotResult: true,
                     message: 'Confirmation email sent to ' + email + '.'
                 })
-                this.props.onSuccess(res.token, res.user);
+                this.props.onSuccess(res.user);
             }
         }
     }

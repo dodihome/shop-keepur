@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ButtonGroup, Button, Alert } from 'react-bootstrap';
 import SignUp from '../accounts/SignUp';
 
 import './Invitation.scss';
+import Login from '../accounts/Login';
 
 export const AcceptInvitation = (props) => {
     const { invitation, context, user, error, onAccept, onCancel } = props;
@@ -10,15 +11,15 @@ export const AcceptInvitation = (props) => {
     const showSignUp = (!user && !context.isInviteeUser) ? true : false;
     const showSignIn = (!user && context.isInviteeUser) ? true: false;
 
-    const onSignedUp = (token, user) => {
-        console.log('userProfile', {token, user});
+    const onSuccess = (user) => {
         onAccept (user.id);
     }
 
-    const onCancelSignup = () => {
+    const onCancelLogin = () => {
         onCancel(invitation.token);
     }
 
+    const toEmail = invitation? invitation.to.email : '';
     return (
         <div className='invitation'>
             <div className='auth'>
@@ -36,22 +37,38 @@ export const AcceptInvitation = (props) => {
             }
 
             {
-                showSignUp ?
-                <React.Fragment>
-                    <div className='auth'>
-                        <strong>Sign Up</strong> to accept the invitation.
-                    </div>
-
-                    <SignUp invitation={invitation} onSuccess={onSignedUp} onCancel={onCancelSignup} hideLoginLink={true} />
-                </React.Fragment>
-                :
-
+                user?
                 <div className='auth'>
                     <ButtonGroup>
                         <Button variant='primary' onClick={()=> { onAccept(invitation.token) }}>Accept</Button>
                         <Button variant='link' onClick={() => { onCancel(invitation.token)  }}>Cancel</Button>
                     </ButtonGroup>
                 </div>
+                : null
+            }
+
+            {
+                showSignUp ?
+                <React.Fragment>
+                    <div className='auth'>
+                        <strong>Sign Up</strong> to accept the invitation.
+                    </div>
+
+                    <SignUp invitation={invitation} onSuccess={onSuccess} onCancel={onCancelLogin} hideLoginLink={true} />
+                </React.Fragment>
+                : null
+            }
+
+            {
+                showSignIn ?
+                <React.Fragment>
+                    <div className='auth'>
+                        <strong>Login</strong> to accept the invitation.
+                    </div>
+
+                    <Login email={toEmail} onSuccess={onSuccess} onCancel={onCancelLogin} hideSignupLink={true} />
+                </React.Fragment>
+                : null
             }
         </div>
     )        

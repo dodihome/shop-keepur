@@ -9,9 +9,17 @@ import Accounts from '../../lib/accounts/client';
 export default class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            password: ''
+        const { email } = props;
+
+        if (email) {
+            this.state = {
+                email, password: '', isEmailLocked: true
+            }
+        } else {
+            this.state = {
+                email: '',
+                password: ''
+            }    
         }
     }
 
@@ -51,21 +59,32 @@ export default class Login extends Component {
             if (error) {
                 this.setState({loginError: error});
             } else {
-                self.props.history.push('/user/profile');
+                self.props.onSuccess (user);
             }
         })            
     }
 
     render () {
+        const { email, isEmailLocked } = this.state;
+        let obsEmail = '';
+        if (isEmailLocked) {
+            const bits = /^(.+)@(.+)$/.exec(email);
+            obsEmail = bits[1][0] + '***' + '@' + bits[2];
+        }
 
         return (
             <div className='auth login'>
                 <h1>Login</h1>
                 <Form onSubmit={this.onLogin.bind(this)}>
-                    <Form.Control placeholder="Email" style={{marginBottom: '10px'}} 
-                        type='text'
-                        onChange={this.onChangeEmail.bind(this) }
-                        value={this.state.email} />
+                    {
+                        isEmailLocked ?
+                        <Form.Text>{obsEmail} <br/><i>(email is obfuscated for security reasons)</i></Form.Text>
+                        :
+                        <Form.Control placeholder="Email" style={{marginBottom: '10px'}} 
+                            type='text'
+                            onChange={this.onChangeEmail.bind(this) }
+                            value={this.state.email} /> 
+                    }
                     <Form.Control placeholder="Password" style={{marginBottom: '10px'}} 
                         type="password"
                         onChange={this.onChangePassword.bind(this)}
@@ -76,13 +95,23 @@ export default class Login extends Component {
                     }
                         
                     <Button block variant='primary' type="submit">Login</Button>
+                    {
+                        this.props.onCancel?
+                        <Button block variant='link' onClick={ ()=> {this.props.onCancel() } }>Cancel</Button>
+                        : null
+                    }
                 </Form>
 
-                <Divider />
-                <div style={{marginTop: '20px', display: 'flex', justifyContent: 'space-evenly'}}>
-                    <Link to='/user/forgot-password' className='btn btn-link'>Forgot Password</Link>
-                    <Link to='/user/sign-up' className='btn btn-link'>Sign Up</Link>
-                </div>
+                {
+                    this.props.hideSignupLink? null :
+                    <React.Fragment>
+                        <Divider />
+                        <div style={{marginTop: '20px', display: 'flex', justifyContent: 'space-evenly'}}>
+                            <Link to='/user/forgot-password' className='btn btn-link'>Forgot Password</Link>
+                            <Link to='/user/sign-up' className='btn btn-link'>Sign Up</Link>
+                        </div>                        
+                    </React.Fragment>    
+                }
             </div>
         );
     }
