@@ -49,7 +49,7 @@ export default class Login extends Component {
         Accounts.login (email, password, (error, user) => {
             console.log({error, user});
             if (error) {
-                console.log({error});
+                this.setState({loginError: error});
             } else {
                 self.props.history.push('/user/profile');
             }

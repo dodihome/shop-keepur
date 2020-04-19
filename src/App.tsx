@@ -18,6 +18,7 @@ import BizManageTeam from './routes/businesses/biz.team';
 import BizzAdmin from './routes/admin/bizz';
 import ProductsPage from './routes/products/list';
 import SearchPage from './routes/search';
+import BizInvitation from './routes/businesses/biz.invitation';
 
 class App extends React.Component {
   render () {
@@ -34,6 +35,7 @@ class App extends React.Component {
 
         <Route exact path='/user/profile' component={UserProfilePage} />
 
+        <Route exact path='/bizz/invitation/:token' component={BizInvitation} />
         <Route exact path='/bizz/new' component={BizEdit} />
         <Route exact path='/bizz/:id/view' component={BizView} />
         <Route exact path='/bizz/:id/claim' component={BizClaim} />

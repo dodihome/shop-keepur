@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import { Form, Button, Alert } from 'react-bootstrap';
 import { isValidEmail } from '../../utils/validator';
@@ -12,13 +11,23 @@ export default class SignUp extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            password2: '',
-        };
+        const {invitation} = props;
+        if (invitation) {
+            const [firstName, lastName] = invitation.to.name.split(/\s/);
+            this.state= {
+                firstName, lastName, 
+                email: invitation.to.email,
+                isEmailLocked: true
+            }
+        } else {
+            this.state = {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                password2: '',
+            };    
+        }
     }
 
     onChangeEmail (e) {
@@ -118,28 +127,26 @@ export default class SignUp extends Component {
                 errorReason: 'Passwords do not match'
             });
         } else {
-            const history = this.props.history;
-            
             const res = await Accounts.signup (email, password, firstName, lastName);
             const {error} = res;
 
             if (error) {
                 this.setState({
+                    gotResult: true,
                     invalidEmailError: true,
                     errorReason: error
                 })
             } else {
                 this.setState({
+                    gotResult: true,
                     message: 'Confirmation email sent to ' + email + '.'
                 })
-                setTimeout(()=> {
-                    history.push('/user/profile');
-                }, 5000);
+                this.props.onSuccess(res.token, res.user);
             }
         }
     }
 
-    render () {
+    renderForm () {
         return (
             <div className='auth login'>
                 <h1>Sign Up</h1>
@@ -156,6 +163,7 @@ export default class SignUp extends Component {
                     />
                     <Form.Control placeholder="Email" style={{marginBottom: '10px'}} 
                         type="text"
+                        readOnly={this.state.isEmailLocked} 
                         isInvalid={this.state.invalidEmailError}
                         onChange={this.onChangeEmail.bind(this)}
                         onBlur={this.validateEmail.bind(this)}
@@ -190,11 +198,44 @@ export default class SignUp extends Component {
                         type="submit">Sign Up</Button>
                 </Form>
                 
-                <Divider />
-                <div style={{marginTop: '20px', display: 'flex', justifyContent: 'center'}}>
-                    <h6>Already have an account? <Link to='/user/login' className='btn btn-link' style={{paddingLeft: '20px'}}>Login</Link></h6>
-                </div>
+                {
+                    this.props.hideLoginLink? null
+                    :
+                    <React.Fragment>
+                        <Divider />
+                        <div style={{marginTop: '20px', display: 'flex', justifyContent: 'center'}}>
+                            <h6>Already have an account? 
+                            <Button variant='link' 
+                                onClick={()=> { this.props.goLogin() }} style={{paddingLeft: '20px'}}>Login</Button></h6>
+                        </div>
+                    </React.Fragment>
+                }
             </div>
         );
+    }
+
+    renderResult () {
+        return (
+            <div className='auth login'>
+                {this.state.errorReason?
+                    <Alert variant='danger'>{this.state.errorReason}</Alert> 
+                    : null
+                }
+
+                {this.state.message?
+                    <Alert variant='info'>{this.state.message}</Alert> 
+                    : null
+                }
+                <Button variant='link' onClick={()=> { this.props.onCancel() } }>Okay</Button>
+            </div>
+        )
+    }
+
+    render () {
+        if (this.state.gotResult) {
+            return this.renderResult();
+        } else {
+            return this.renderForm();
+        }
     }
 }

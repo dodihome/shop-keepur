@@ -156,6 +156,12 @@ const Bizz = {
         return res;
     },
 
+    acceptInvitation: async (token: string, userId: string) => {
+        const uri = '/api/bizz/accept-invite?token=' + token + '&userId=' + userId;
+        const resRaw = await fetch (uri);
+        return (await resRaw.json());        
+    },
+
     rescindInvitation : async (token: string, userId: string) => {
         const uri = '/api/bizz/rescind-invite?token=' + token + '&userId=' + userId;
         const resRaw = await fetch (uri);
@@ -170,6 +176,12 @@ const Bizz = {
 
     getInvitations : async (bizId: string, userId: string) => {
         const uri = '/api/bizz/fetch-invitations?bizId=' + bizId + '&userId=' + userId;
+        const resRaw = await fetch (uri);
+        return (await resRaw.json());
+    },
+
+    getInvitationByToken : async (token: string) => {
+        const uri = '/api/bizz/get-invitation-by-token?token=' + token;
         const resRaw = await fetch (uri);
         return (await resRaw.json());
     },

@@ -83,9 +83,9 @@ class UnclaimedRow extends React.Component<any, any> {
                     <tr>
                         <td>&nbsp;</td>
                         <td colSpan={2}>
+                            <PendingInvitations invitations={invitations} onResend={this.onResend.bind(this)} onRescind={this.onRescind.bind(this)} />
+                            <Divider text='Invite Owner/Manager' style={{marginTop: '20px', marginBottom: '20px'}} />
                             <InviteTeamMember bizId={biz.id} onInvite={this.onInvite.bind(this)} />
-                            <Divider text='Pending Invitations' style={{marginTop: '20px', marginBottom: '20px'}} />
-                            <PendingInvitations invitations={invitations} />
                         </td>
                     </tr>
                     : null

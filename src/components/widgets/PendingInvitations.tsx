@@ -12,14 +12,16 @@ const rolesMap = {
 export const Invitation = (props) => {
     const {invitation, onRescind, onResend } = props;
     const {from, to, role, timestamp, token} = invitation;
+
+    const buttonStyle = {marginLeft: '10px'};
     return (
         <tr>
             <td>{titleCase(from.displayName)}</td>
             <td>{titleCase(to.name)} ({to.email}) as {rolesMap[role]}</td>
             <td>{fromNow(timestamp)}</td>
             <td>
-                <Button onClick={()=>{onResend(token)}} variant='outline-primary'>Resend</Button>
-                <Button onClick={()=>{onRescind(token)}} variant='outline-danger'>Rescind</Button>
+                <Button style={buttonStyle} onClick={()=>{onResend(token)}} variant='outline-primary'>Resend</Button>
+                <Button style={buttonStyle} onClick={()=>{onRescind(token)}} variant='outline-danger'>Rescind</Button>
             </td>
         </tr>
     )
