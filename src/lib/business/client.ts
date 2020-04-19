@@ -202,8 +202,8 @@ const Bizz = {
         if (!biz.isClaimed) {
             return true;
         } else {
-            const found = _.find(biz.claims, (claim)=> {
-                return (claim.state === 'ACCEPTED' && claim.claimedBy.userId === user.id);
+            const found = _.find(biz.persons, (pig)=> {
+                return (pig.userId === user.id);
             })
             return (found? true: false);
         }
@@ -216,8 +216,8 @@ const Bizz = {
         if (!biz.isClaimed) {
             return false;
         } else {
-            const found = _.find(biz.claims, (claim)=> {
-                return (claim.state === 'ACCEPTED' && claim.claimedBy.userId === user.id);
+            const found = _.find(biz.persons, (pig)=> {
+                return (pig.userId === user.id);
             })
             return (found? true: false);
         }

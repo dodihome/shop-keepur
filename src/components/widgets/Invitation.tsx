@@ -16,7 +16,7 @@ export const AcceptInvitation = (props) => {
     }
 
     const onCancelLogin = () => {
-        onCancel(invitation.token);
+        onCancel();
     }
 
     const toEmail = invitation? invitation.to.email : '';
@@ -40,8 +40,8 @@ export const AcceptInvitation = (props) => {
                 user?
                 <div className='auth'>
                     <ButtonGroup>
-                        <Button variant='primary' onClick={()=> { onAccept(invitation.token) }}>Accept</Button>
-                        <Button variant='link' onClick={() => { onCancel(invitation.token)  }}>Cancel</Button>
+                        <Button variant='primary' onClick={()=> { onAccept(user.id) }}>Accept</Button>
+                        <Button variant='link' onClick={() => { onCancel()  }}>Cancel</Button>
                     </ButtonGroup>
                 </div>
                 : null

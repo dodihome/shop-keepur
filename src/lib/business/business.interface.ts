@@ -79,7 +79,7 @@ export interface IBizConsumerView {
     social: ISocialMediaAccount[],
     emails: string[],
     isClaimed: boolean,
-    people: any[],
+    persons: any[],
     inventory: IInventoryItem[],
     claims: any[]
 }
