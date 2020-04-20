@@ -17,7 +17,6 @@ export class UniqueLocations extends React.Component <any, any> {
     onClick ( city: any, e: any) {
         e.preventDefault();
         city.location = city._id.city + ', ' + city._id.state;
-        console.log(city);
         if (this.props.onClick)
             this.props.onClick(city);
     }
@@ -26,8 +25,6 @@ export class UniqueLocations extends React.Component <any, any> {
         const { hideCount } = this.props;
         const { cities } = this.state;
         const grouped = _.groupBy (_.orderBy(cities, ['_id.state', '_.id.city'], ['asc', 'asc']) , '_id.state');
-
-        console.log({grouped});
 
         return (
             <div className='browse-locations'>

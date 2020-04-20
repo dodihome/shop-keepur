@@ -110,7 +110,6 @@ export class InventoryView extends React.Component<any, any> {
 
     render () {
         const { items, basic } = this.props;
-        console.log({items});
 
         const inStock = [];
         const outOfStock = [];
@@ -149,7 +148,6 @@ export class InventoryEdit extends React.Component<any, any> {
     }
 
     _addToList (product: any, status: InventoryStatus) {
-        console.log({product});
         const {items} = this.props;
 
         let found;
@@ -193,8 +191,6 @@ export class InventoryEdit extends React.Component<any, any> {
         e.preventDefault();
         item.status = status;
 
-        console.log({item});
-
         this.props.onUpdate(item);
     }
 
@@ -216,8 +212,6 @@ export class InventoryEdit extends React.Component<any, any> {
     render () {
         const { items, user } = this.props;
 
-        console.log({items});
-
         const inStock = [];
         const outOfStock = [];
         const unknown = [];
@@ -229,8 +223,6 @@ export class InventoryEdit extends React.Component<any, any> {
             else 
                 unknown.push(item);
         })
-
-        console.log({inStock, outOfStock});
 
         return (
             <CardDeck className='inventory'>

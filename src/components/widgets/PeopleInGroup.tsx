@@ -17,7 +17,6 @@ export const PeopleInGroupView = (props) => {
                 </thead>
                 <tbody>
                     {persons.map((p)=> {
-                        console.log({p});
                         return (<tr key={p._id}>
                             <td>{p.person.firstName} {p.person.lastName}</td>
                             <td>{p.role}</td>

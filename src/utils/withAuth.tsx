@@ -13,7 +13,6 @@ export function withAuth(WrappedComponent: any) {
 
                 const session = Cookies.get('session');            
                 if (session) {
-                    console.log('session: ' + session);
                     const resume = async ()=> {
                         const res = await Accounts.resume(session);
                         if (res.user) {

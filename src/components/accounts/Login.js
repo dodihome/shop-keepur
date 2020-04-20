@@ -55,7 +55,6 @@ export default class Login extends Component {
         const { email, password } = this.state;
         const self = this;
         Accounts.login (email, password, (error, user) => {
-            console.log({error, user});
             if (error) {
                 this.setState({loginError: error});
             } else {

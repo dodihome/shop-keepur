@@ -35,7 +35,6 @@ const Accounts = {
     resume: async (token: string) => {
 
         const uri = serverBaseUrl + '/api/accounts/resume?token=' + token;
-        console.log('Accounts.resume', uri);
         const resRaw = await fetch (uri);
         const res = await resRaw.json() as LoginResult;
         return {error: res.error, user: res.user};

@@ -36,7 +36,6 @@ export class ProductSearch extends React.Component<any, any> {
     }
 
     onChange ( selected: any) {
-        console.log(selected);
         this.setState({selected, isSearching: true});
         setTimeout(this.onSubmit.bind(this), 300);
     }

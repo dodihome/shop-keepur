@@ -46,7 +46,6 @@ class BizInvitation extends React.Component<any, any> {
         if (!invitation || !context) 
             return null;
 
-        console.log('invitation context', context);
         return (
             <DefaultLayout>
                 <AcceptInvitation user={user} invitation={invitation} context={context} error={error}

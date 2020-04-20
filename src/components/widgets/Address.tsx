@@ -59,12 +59,10 @@ export class SimpleAddressEdit extends Component<any, any> {
     onBlur (e : any) {
         e.preventDefault();
         const addr = parseAddress(this.state.addressStr);
-        console.log({addr});
         if (!addr.city || !addr.state) {
             this.setState({validationError: true});
         } else {
             const stateIdx = _.indexOf(US_States, addr.state);
-            console.log(stateIdx);
             if (stateIdx < 0) {
                 this.setState({validationError: true});
             } else {

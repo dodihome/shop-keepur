@@ -104,7 +104,6 @@ const Bizz = {
         const uri = '/api/bizz/claim?' + queryStr;
         const resRaw = await fetch (uri);
         const res = await resRaw.json();
-        console.log({res});
         return res;
     },
 

@@ -46,7 +46,6 @@ class Navigation extends React.Component<any, any>  {
 
     render () {
         const { headline } = this.props;
-        console.log(this.props);
         return (
             <Navbar bg="dark" variant="dark" fixed='top' expand='md'>
                 <Navbar.Brand href="/">Shop Keepur</Navbar.Brand>

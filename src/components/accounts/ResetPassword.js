@@ -65,10 +65,8 @@ export default class ResetPassword extends Component {
             });
         } else {
             const res = await Accounts.resetPassword (token, password);
-            console.log(res);
 
             if (res.error) {
-                console.log(res.error);
                 this.setState ({
                     errorReason: res.error
                 });

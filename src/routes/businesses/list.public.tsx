@@ -18,7 +18,6 @@ class ConsumerList extends React.Component<any, any> {
         if (error) {
             this.setState({error});
         } else {
-            console.log({bizz});
             this.setState ({
                 bizz
             });    
