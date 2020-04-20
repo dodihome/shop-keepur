@@ -1,7 +1,6 @@
 import React from 'react';
 import { InviteTeamMember } from './InviteTeam';
 import { Table } from 'react-bootstrap';
-import { parentPort } from 'worker_threads';
 
 export const PeopleInGroupView = (props) => {
     const { persons, onInvite } = props;
